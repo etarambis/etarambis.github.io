@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Edison Tarambis · CV — Ingeniero de Automatización de Pruebas</title>
+<meta name="description" content="Currículum online de Edison Giovanny Tarambis Enriquez, Ingeniero de Automatización de Pruebas (QA / SDET).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul-petroleo:#294F5E;
+    --azul-petroleo-dark:#1D3A46;
+    --texto:#333333;
+    --fondo-secundario:#F5F5F7;
+    --linea:#E3E3E0;
+    --blanco:#FFFFFF;
+    --sombra: 0 2px 10px rgba(0,0,0,.06);
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+
+  html{-webkit-text-size-adjust:100%;}
+
+  body{
+    margin:0;
+    font-family:'Roboto', Arial, sans-serif;
+    color:var(--texto);
+    background:#E9E9EC;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--azul-petroleo); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  :focus-visible{
+    outline:3px solid #7fb3c9;
+    outline-offset:2px;
+    border-radius:2px;
+  }
+
+  /* ===== Botón Descargar PDF ===== */
+  .toolbar{
+    position:fixed;
+    top:16px;
+    right:16px;
+    z-index:100;
+  }
+  .btn-download{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--azul-petroleo);
+    color:#fff;
+    border:none;
+    padding:.7rem 1.1rem;
+    border-radius:8px;
+    font-family:inherit;
+    font-size:.9rem;
+    font-weight:500;
+    cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.22);
+    transition:background .15s ease, transform .15s ease;
+  }
+  .btn-download:hover{background:var(--azul-petroleo-dark); transform:translateY(-1px);}
+  .btn-download:active{transform:translateY(0);}
+  .btn-download svg{width:18px; height:18px; flex:none;}
+
+  /* ===== Contenedor / hoja tipo CV ===== */
+  .page-wrap{
+    display:flex;
+    justify-content:center;
+    padding:2.5rem 1rem;
+  }
+
+  .cv{
+    display:flex;
+    width:100%;
+    max-width:960px;
+    background:var(--blanco);
+    box-shadow:var(--sombra);
+    border-radius:10px;
+    overflow:hidden;
+  }
+
+  /* ===== Sidebar (columna izquierda) ===== */
+  .sidebar{
+    flex:0 0 280px;
+    width:280px;
+    background:var(--fondo-secundario);
+    display:flex;
+    flex-direction:column;
+    position:relative;
+  }
+
+  .sidebar-header{
+    background:var(--azul-petroleo);
+    color:#fff;
+    padding:2.75rem 1.5rem 4.5rem;
+    text-align:center;
+    position:relative;
+  }
+
+  .avatar{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    margin:0 auto 1rem;
+    background:linear-gradient(150deg,#4C7A8B,#1D3A46);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:2.4rem;
+    font-weight:700;
+    border:4px solid rgba(255,255,255,.85);
+    box-shadow:0 4px 12px rgba(0,0,0,.25);
+    letter-spacing:1px;
+  }
+
+  .sidebar-header h1{
+    font-size:1.25rem;
+    font-weight:700;
+    margin:0 0 .35rem;
+    line-height:1.25;
+  }
+
+  .sidebar-header .rol{
+    font-size:.82rem;
+    font-weight:300;
+    letter-spacing:.4px;
+    opacity:.92;
+    text-transform:uppercase;
+  }
+
+  .sidebar-body{
+    padding:0 1.5rem 2rem;
+    margin-top:-2.25rem;
+  }
+
+  .sidebar-section{
+    margin-top:2rem;
+  }
+
+  .sidebar-section:first-child{
+    margin-top:0;
+  }
+
+  .sidebar-section h2{
+    font-size:.78rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.6px;
+    color:var(--azul-petroleo);
+    margin:0 0 .9rem;
+    padding-bottom:.4rem;
+    border-bottom:2px solid var(--azul-petroleo);
+  }
+
+  /* Datos personales */
+  .contact-list{
+    list-style:none;
+    margin:0; padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:.65rem;
+  }
+  .contact-list li{
+    display:flex;
+    align-items:flex-start;
+    gap:.6rem;
+    font-size:.82rem;
+    word-break:break-word;
+  }
+  .contact-list svg{
+    flex:none;
+    width:16px; height:16px;
+    margin-top:2px;
+    color:var(--azul-petroleo);
+  }
+
+  /* Teléfono: se muestra como etiqueta y revela el número al pasar el mouse / foco */
+  .phone-reveal{
+    position:relative;
+    display:inline-block;
+    cursor:help;
+    color:inherit;
+    border-bottom:1px dotted var(--azul-petroleo);
+  }
+  .phone-reveal:hover{
+    text-decoration:none;
+  }
+  .phone-tooltip{
+    position:absolute;
+    left:0;
+    bottom:calc(100% + 8px);
+    background:var(--azul-petroleo-dark);
+    color:#fff;
+    font-size:.75rem;
+    font-weight:500;
+    white-space:nowrap;
+    padding:.4rem .6rem;
+    border-radius:6px;
+    box-shadow:0 4px 10px rgba(0,0,0,.2);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(4px);
+    transition:opacity .15s ease, transform .15s ease;
+    z-index:10;
+  }
+  .phone-tooltip::after{
+    content:"";
+    position:absolute;
+    top:100%;
+    left:14px;
+    border:5px solid transparent;
+    border-top-color:var(--azul-petroleo-dark);
+  }
+  .phone-reveal:hover .phone-tooltip,
+  .phone-reveal:focus-visible .phone-tooltip{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+  }
+
+  /* Skills */
+  .skill-group{margin-bottom:1.1rem;}
+  .skill-group:last-child{margin-bottom:0;}
+  .skill-group h3{
+    font-size:.75rem;
+    font-weight:700;
+    margin:0 0 .5rem;
+    color:var(--azul-petroleo-dark);
+  }
+  .skill-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.35rem;
+  }
+  .skill-tags span{
+    background:var(--blanco);
+    border:1px solid var(--linea);
+    color:var(--texto);
+    font-size:.72rem;
+    padding:.28rem .55rem;
+    border-radius:20px;
+    line-height:1.2;
+  }
+
+  /* Idiomas */
+  .lang-item{margin-bottom:.8rem;}
+  .lang-item:last-child{margin-bottom:0;}
+  .lang-top{
+    display:flex;
+    justify-content:space-between;
+    font-size:.82rem;
+    margin-bottom:.3rem;
+  }
+  .lang-top .nivel{color:#666; font-weight:300;}
+  .lang-bar{
+    height:6px;
+    background:var(--linea);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .lang-bar span{
+    display:block;
+    height:100%;
+    background:var(--azul-petroleo);
+    border-radius:4px;
+  }
+
+  .hobbies-list{
+    margin:0; padding:0;
+    list-style:none;
+    font-size:.82rem;
+    display:flex;
+    flex-direction:column;
+    gap:.55rem;
+  }
+  .hobbies-list li{display:flex; gap:.6rem; align-items:flex-start;}
+  .hobbies-list svg{flex:none; width:16px; height:16px; margin-top:2px; color:var(--azul-petroleo);}
+
+  /* Ola decorativa */
+  .sidebar-wave{
+    margin-top:auto;
+    line-height:0;
+  }
+  .sidebar-wave svg{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+
+  /* ===== Columna derecha (contenido principal) ===== */
+  .main{
+    flex:1 1 auto;
+    min-width:0;
+    padding:2.75rem 2.5rem;
+    background:var(--blanco);
+  }
+
+  .main h2.section-title{
+    font-size:1.05rem;
+    font-weight:700;
+    color:var(--azul-petroleo);
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    margin:0 0 .55rem;
+    padding-bottom:.5rem;
+    border-bottom:2px solid var(--linea);
+    position:relative;
+  }
+  .main h2.section-title::after{
+    content:"";
+    position:absolute;
+    left:0; bottom:-2px;
+    width:56px;
+    height:2px;
+    background:var(--azul-petroleo);
+  }
+
+  .main-section{
+    margin-bottom:2rem;
+  }
+  .main-section:last-child{margin-bottom:0;}
+
+  .perfil-texto{
+    margin:1rem 0 0;
+    font-size:.92rem;
+    color:var(--texto);
+    line-height:1.65;
+  }
+
+  /* Formación */
+  .edu-item{
+    margin-top:1.1rem;
+    display:flex;
+    justify-content:space-between;
+    gap:1rem;
+    flex-wrap:wrap;
+  }
+  .edu-item:first-of-type{margin-top:1rem;}
+  .edu-main strong{
+    display:block;
+    font-size:.94rem;
+    color:var(--texto);
+  }
+  .edu-main span{
+    font-size:.85rem;
+    color:#5a5a5a;
+  }
+  .edu-fecha{
+    font-size:.82rem;
+    color:var(--azul-petroleo);
+    font-weight:500;
+    white-space:nowrap;
+  }
+
+  /* Experiencia */
+  .exp-item{
+    margin-top:1.4rem;
+    padding-bottom:1.4rem;
+    border-bottom:1px solid var(--linea);
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+  .exp-item:first-of-type{margin-top:1rem;}
+  .exp-item:last-child{border-bottom:none; padding-bottom:0;}
+
+  .exp-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:1rem;
+    flex-wrap:wrap;
+  }
+  .exp-head h3{
+    margin:0;
+    font-size:.98rem;
+    color:var(--texto);
+    font-weight:700;
+  }
+  .exp-head .fecha{
+    font-size:.8rem;
+    color:var(--azul-petroleo);
+    font-weight:500;
+    white-space:nowrap;
+    flex:none;
+  }
+  .exp-empresa{
+    font-size:.85rem;
+    color:#5a5a5a;
+    margin:.15rem 0 .7rem;
+    font-style:italic;
+  }
+  .exp-item ul{
+    margin:0;
+    padding-left:1.1rem;
+    display:flex;
+    flex-direction:column;
+    gap:.4rem;
+  }
+  .exp-item li{
+    font-size:.88rem;
+    line-height:1.55;
+  }
+  .exp-tools{
+    margin-top:.7rem;
+    font-size:.8rem;
+    color:#555;
+  }
+  .exp-tools strong{color:var(--azul-petroleo-dark);}
+
+  /* Cursos */
+  .courses-list{
+    margin:1rem 0 0;
+    padding:0;
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+  }
+  .courses-list li{
+    display:flex;
+    justify-content:space-between;
+    gap:1rem;
+    align-items:baseline;
+    font-size:.87rem;
+    padding:.55rem 0;
+    border-bottom:1px dashed var(--linea);
+  }
+  .courses-list li:last-child{border-bottom:none;}
+  .course-name{color:var(--texto);}
+  .course-horas{
+    color:#777;
+    font-weight:300;
+    white-space:nowrap;
+    margin-left:.5rem;
+  }
+  .course-year{
+    color:var(--azul-petroleo);
+    font-weight:700;
+    white-space:nowrap;
+    flex:none;
+  }
+
+  /* Referencias */
+  .refs-grid{
+    margin-top:1rem;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1rem 1.5rem;
+  }
+  .ref-item{
+    font-size:.86rem;
+    padding:.85rem 1rem;
+    background:var(--fondo-secundario);
+    border-radius:8px;
+    border-left:3px solid var(--azul-petroleo);
+  }
+  .ref-item strong{
+    display:block;
+    color:var(--texto);
+    font-size:.9rem;
+    margin-bottom:.15rem;
+  }
+  .ref-item span{
+    display:block;
+    color:#5a5a5a;
+  }
+
+  footer.credit{
+    text-align:center;
+    font-size:.75rem;
+    color:#888;
+    padding:1.5rem 1rem 2.5rem;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 800px){
+    .main{padding:2.25rem 1.5rem;}
+    .sidebar{flex-basis:240px; width:240px;}
+  }
+
+  @media (max-width: 560px){
+    .page-wrap{padding:0;}
+    .cv{
+      flex-direction:column;
+      border-radius:0;
+      max-width:100%;
+    }
+    .sidebar{width:100%; flex-basis:auto;}
+    .sidebar-wave{display:none;}
+    .main{padding:2rem 1.25rem 3rem;}
+    .refs-grid{grid-template-columns:1fr;}
+    .toolbar{top:auto; bottom:16px; right:16px;}
+    .exp-head, .edu-item{flex-direction:column; gap:.15rem;}
+  }
+
+  /* ===== Impresión ===== */
+  @media print{
+    @page{
+      size:A4;
+      margin:0;
+    }
+    html,body{
+      background:#fff;
+      margin:0;
+    }
+    .toolbar{display:none !important;}
+    .page-wrap{padding:0;}
+    .cv{
+      max-width:none;
+      width:100%;
+      box-shadow:none;
+      border-radius:0;
+    }
+    .exp-item, .ref-item, .edu-item, .skill-group, .lang-item{
+      break-inside:avoid;
+      page-break-inside:avoid;
+    }
+    .main-section{
+      break-inside:avoid-page;
+    }
+    a{color:inherit; text-decoration:none;}
+    footer.credit{display:none;}
+    .sidebar-wave svg path{fill:var(--azul-petroleo) !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button class="btn-download" id="btnDescargar" type="button" aria-label="Descargar CV en PDF">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+      <polyline points="7 10 12 15 17 10"></polyline>
+      <line x1="12" y1="15" x2="12" y2="3"></line>
+    </svg>
+    Descargar PDF
+  </button>
+</div>
+
+<div class="page-wrap">
+  <main class="cv">
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="avatar" aria-hidden="true">ET</div>
+        <h1>Edison Giovanny<br>Tarambis Enriquez</h1>
+        <p class="rol">Ingeniero de Automatización<br>de Pruebas (QA / SDET)</p>
+      </div>
+
+      <div class="sidebar-body">
+
+        <section class="sidebar-section" aria-labelledby="datos-personales-h">
+          <h2 id="datos-personales-h">Datos personales</h2>
+          <ul class="contact-list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z" opacity="0"></path><path d="M22 6l-10 7L2 6"></path><path d="M2 6h20v12H2z"></path></svg>
+              <span><a href="mailto:etarambis@gmail.com">etarambis@gmail.com</a></span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.97.36 1.92.68 2.83a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.25-1.25a2 2 0 0 1 2.11-.45c.91.32 1.86.55 2.83.68A2 2 0 0 1 22 16.92z"></path></svg>
+              <a class="phone-reveal" href="tel:+593992767785" aria-label="Llamar al +593992767785">
+                Phone Number
+                <span class="phone-tooltip" role="tooltip">+593992767785</span>
+              </a>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span>Quito, Ecuador</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              <span><a href="https://www.linkedin.com/in/edison-tarambis/" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a></span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 4-7 8-7s8 3 8 7"></path></svg>
+              <span>Ecuatoriano</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="sidebar-section" aria-labelledby="skills-h">
+          <h2 id="skills-h">Habilidades técnicas</h2>
+
+          <div class="skill-group">
+            <h3>Automatización de pruebas</h3>
+            <div class="skill-tags">
+              <span>Selenium WebDriver</span><span>Serenity BDD</span><span>Cucumber</span>
+              <span>Karate DSL</span><span>Playwright</span><span>K6</span><span>Postman</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <h3>Programación</h3>
+            <div class="skill-tags">
+              <span>Java</span><span>JavaScript</span><span>TypeScript</span><span>Python</span>
+              <span>SQL (Oracle, PostgreSQL, MySQL)</span><span>PL/SQL</span><span>Git/GitHub</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <h3>DevOps &amp; Cloud</h3>
+            <div class="skill-tags">
+              <span>Azure DevOps</span><span>AWS</span><span>Docker</span><span>Jenkins</span>
+              <span>SonarCloud</span><span>CI/CD</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <h3>Metodologías</h3>
+            <div class="skill-tags">
+              <span>Agile/Scrum</span><span>BDD/TDD</span><span>Shift-Left Testing</span>
+              <span>Risk-Based Testing</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <h3>Gestión</h3>
+            <div class="skill-tags">
+              <span>JIRA</span><span>TestRail</span><span>Liderazgo de equipos</span><span>Mentoría técnica</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="sidebar-section" aria-labelledby="idiomas-h">
+          <h2 id="idiomas-h">Idiomas</h2>
+          <div class="lang-item">
+            <div class="lang-top"><span>Español</span><span class="nivel">Nativo</span></div>
+            <div class="lang-bar"><span style="width:100%"></span></div>
+          </div>
+          <div class="lang-item">
+            <div class="lang-top"><span>Inglés</span><span class="nivel">Profesional - técnico</span></div>
+            <div class="lang-bar"><span style="width:80%"></span></div>
+          </div>
+        </section>
+
+        <section class="sidebar-section" aria-labelledby="aficiones-h">
+          <h2 id="aficiones-h">Aficiones e intereses</h2>
+          <ul class="hobbies-list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"></path><line x1="9" y1="21" x2="15" y2="21"></line><line x1="10" y1="17" x2="10" y2="21"></line><line x1="14" y1="17" x2="14" y2="21"></line></svg>
+              <span>Investigación de IA y metodologías ágiles</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"></path><path d="M18.7 8l-5.1 5.1-3-3L3 17.4"></path></svg>
+              <span>Tendencias de QA</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              <span>Pensamiento estructurado</span>
+            </li>
+          </ul>
+        </section>
+
+      </div>
+
+      <div class="sidebar-wave" aria-hidden="true">
+        <svg viewBox="0 0 280 90" preserveAspectRatio="none">
+          <path d="M0,40 C60,90 120,0 180,35 C220,58 250,45 280,20 L280,90 L0,90 Z" fill="#294F5E"></path>
+        </svg>
+      </div>
+    </aside>
+
+    <!-- ============ CONTENIDO PRINCIPAL ============ -->
+    <section class="main">
+
+      <section class="main-section" aria-labelledby="perfil-h">
+        <h2 class="section-title" id="perfil-h">Perfil profesional</h2>
+        <p class="perfil-texto">
+          Ingeniero en Informática con MBA, especializado en arquitectura de frameworks de automatización
+          web/móvil desde cero con Playwright, Appium, Serenity BDD, TypeScript y Java. Enfocado en Clean Code,
+          pruebas de API, pruebas de rendimiento, seeding/mocks de datos y pipelines de CI/CD.
+        </p>
+      </section>
+
+      <section class="main-section" aria-labelledby="formacion-h">
+        <h2 class="section-title" id="formacion-h">Formación</h2>
+
+        <div class="edu-item">
+          <div class="edu-main">
+            <strong>MBA Administración de Empresas</strong>
+            <span>Universidad Central del Ecuador</span>
+          </div>
+          <div class="edu-fecha">2013 — 2015</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-main">
+            <strong>Ingeniería en Informática</strong>
+            <span>Universidad Central del Ecuador</span>
+          </div>
+          <div class="edu-fecha">1998 — 2006</div>
+        </div>
+      </section>
+
+      <section class="main-section" aria-labelledby="experiencia-h">
+        <h2 class="section-title" id="experiencia-h">Experiencia profesional</h2>
+
+        <article class="exp-item">
+          <div class="exp-head">
+            <h3>Ingeniero de Automatización</h3>
+            <span class="fecha">Dic 2021 — Presente</span>
+          </div>
+          <p class="exp-empresa">Banco Pichincha, Quito</p>
+          <ul>
+            <li><strong>Diseñé y lideré desde cero un framework de automatización end-to-end</strong> con Playwright y TypeScript, reduciendo el tiempo de regresión manual en múltiples aplicaciones bancarias.</li>
+            <li><strong>Implementé pruebas de automatización móvil con Appium</strong> integradas al pipeline de CI/CD para apps de banca digital.</li>
+            <li><strong>Establecí pruebas de API y de rendimiento</strong>, incorporando seeding y mocks de datos para escenarios estables y repetibles.</li>
+            <li><strong>Impulsé prácticas de Clean Code y Shift-Left Testing</strong> junto a mentoría técnica a nuevos integrantes del equipo de calidad.</li>
+          </ul>
+          <p class="exp-tools"><strong>Tools:</strong> Playwright, Appium, Serenity BDD, TypeScript, Java, Azure DevOps, Docker, Postman, K6, SonarCloud</p>
+        </article>
+
+        <article class="exp-item">
+          <div class="exp-head">
+            <h3>Ingeniero de Calidad</h3>
+            <span class="fecha">Sep 2013 — Nov 2021</span>
+          </div>
+          <p class="exp-empresa">DNTI, IESS, Quito</p>
+          <ul>
+            <li><strong>Lideré la estrategia de pruebas</strong> de sistemas críticos de seguridad social, aplicando enfoques de Risk-Based Testing.</li>
+            <li><strong>Construí suites de automatización con Selenium WebDriver y Serenity BDD</strong> integradas con Cucumber para pruebas BDD/TDD.</li>
+            <li><strong>Automaticé pruebas de servicios con Karate DSL</strong>, mejorando la cobertura y trazabilidad de defectos.</li>
+            <li><strong>Coordiné equipos multidisciplinarios</strong> bajo metodología Agile/Scrum, gestionando incidencias en JIRA y TestRail.</li>
+          </ul>
+          <p class="exp-tools"><strong>Tools:</strong> Selenium WebDriver, Serenity BDD, Cucumber, Karate DSL, Java, SQL (Oracle), JIRA, TestRail</p>
+        </article>
+
+        <article class="exp-item">
+          <div class="exp-head">
+            <h3>Analista de Calidad</h3>
+            <span class="fecha">Ene 2010 — Sep 2013</span>
+          </div>
+          <p class="exp-empresa">SONDA S.A, Quito</p>
+          <ul>
+            <li><strong>Ejecuté y documenté planes de pruebas funcionales</strong> para proyectos de integración de sistemas empresariales.</li>
+            <li><strong>Desarrollé scripts de automatización iniciales</strong> con Selenium WebDriver, sentando las bases de la disciplina QA en el equipo.</li>
+            <li><strong>Diseñé casos de prueba a partir de requerimientos</strong>, mejorando la detección temprana de defectos.</li>
+          </ul>
+          <p class="exp-tools"><strong>Tools:</strong> Selenium WebDriver, SQL, PL/SQL, JIRA</p>
+        </article>
+
+        <article class="exp-item">
+          <div class="exp-head">
+            <h3>Administrador de Servidores</h3>
+            <span class="fecha">2006 — Nov 2009</span>
+          </div>
+          <p class="exp-empresa">Compuseg Ltda., Quito</p>
+          <ul>
+            <li><strong>Administré infraestructura de servidores</strong> garantizando disponibilidad y continuidad operativa.</li>
+            <li><strong>Implementé procesos de monitoreo y respaldo</strong>, reduciendo tiempos de indisponibilidad.</li>
+          </ul>
+          <p class="exp-tools"><strong>Tools:</strong> Administración de servidores, Bases de datos, Redes</p>
+        </article>
+
+        <article class="exp-item">
+          <div class="exp-head">
+            <h3>Asistente de Sistemas</h3>
+            <span class="fecha">2006 — 2007</span>
+          </div>
+          <p class="exp-empresa">Repact Contact Center, Quito</p>
+          <ul>
+            <li><strong>Brindé soporte técnico de primer nivel</strong> a la plataforma tecnológica del centro de contacto.</li>
+            <li><strong>Colaboré en el mantenimiento de sistemas y bases de datos</strong> del área operativa.</li>
+          </ul>
+          <p class="exp-tools"><strong>Tools:</strong> Soporte técnico, SQL, Sistemas operativos</p>
+        </article>
+      </section>
+
+      <section class="main-section" aria-labelledby="cursos-h">
+        <h2 class="section-title" id="cursos-h">Cursos y certificaciones</h2>
+        <ul class="courses-list">
+          <li><span class="course-name">Automatización de pruebas con Playwright y TypeScript <span class="course-horas">(40h)</span></span><span class="course-year">2026</span></li>
+          <li><span class="course-name">Fundamentos de IA aplicada a QA y Testing Inteligente <span class="course-horas">(24h)</span></span><span class="course-year">2025</span></li>
+          <li><span class="course-name">Serenity BDD avanzado con Screenplay Pattern <span class="course-horas">(30h)</span></span><span class="course-year">2025</span></li>
+          <li><span class="course-name">Pruebas de rendimiento con K6 <span class="course-horas">(20h)</span></span><span class="course-year">2024</span></li>
+          <li><span class="course-name">Automatización móvil con Appium <span class="course-horas">(32h)</span></span><span class="course-year">2024</span></li>
+          <li><span class="course-name">CI/CD con Azure DevOps Pipelines <span class="course-horas">(24h)</span></span><span class="course-year">2024</span></li>
+          <li><span class="course-name">Karate DSL para pruebas de API <span class="course-horas">(16h)</span></span><span class="course-year">2023</span></li>
+          <li><span class="course-name">Docker para entornos de pruebas <span class="course-horas">(18h)</span></span><span class="course-year">2023</span></li>
+          <li><span class="course-name">Clean Code aplicado a frameworks de automatización <span class="course-horas">(20h)</span></span><span class="course-year">2023</span></li>
+          <li><span class="course-name">SonarCloud: análisis de calidad de código <span class="course-horas">(12h)</span></span><span class="course-year">2022</span></li>
+          <li><span class="course-name">TypeScript avanzado para testers <span class="course-horas">(28h)</span></span><span class="course-year">2022</span></li>
+          <li><span class="course-name">AWS Cloud Practitioner Essentials <span class="course-horas">(24h)</span></span><span class="course-year">2022</span></li>
+          <li><span class="course-name">Cucumber y BDD para equipos ágiles <span class="course-horas">(16h)</span></span><span class="course-year">2021</span></li>
+          <li><span class="course-name">Scrum Master: fundamentos de Agile/Scrum <span class="course-horas">(20h)</span></span><span class="course-year">2021</span></li>
+          <li><span class="course-name">Selenium WebDriver con Java <span class="course-horas">(40h)</span></span><span class="course-year">2020</span></li>
+          <li><span class="course-name">Postman: automatización de pruebas de API <span class="course-horas">(14h)</span></span><span class="course-year">2020</span></li>
+          <li><span class="course-name">PL/SQL avanzado para bases de datos Oracle <span class="course-horas">(30h)</span></span><span class="course-year">2020</span></li>
+          <li><span class="course-name">Risk-Based Testing y estrategias de priorización <span class="course-horas">(16h)</span></span><span class="course-year">2019</span></li>
+          <li><span class="course-name">Fundamentos de Git y GitHub para equipos de desarrollo <span class="course-horas">(12h)</span></span><span class="course-year">2019</span></li>
+        </ul>
+      </section>
+
+      <section class="main-section" aria-labelledby="referencias-h">
+        <h2 class="section-title" id="referencias-h">Referencias laborales</h2>
+        <div class="refs-grid">
+          <div class="ref-item">
+            <strong>Ing. Fernando Vaca</strong>
+            <span>Líder de Automatización — Banco Pichincha</span>
+          </div>
+          <div class="ref-item">
+            <strong>Ing. María José Ron</strong>
+            <span>Coordinadora de Calidad — DNTI, IESS</span>
+          </div>
+          <div class="ref-item">
+            <strong>Ing. Patricio Salazar</strong>
+            <span>Jefe de Proyectos — SONDA S.A</span>
+          </div>
+        </div>
+      </section>
+
+    </section>
+  </main>
+</div>
+
+<footer class="credit">
+  © 2026 Edison Giovanny Tarambis Enriquez — CV en línea
+</footer>
+
+<script>
+  (function () {
+    'use strict';
+    var btn = document.getElementById('btnDescargar');
+    if (btn) {
+      btn.addEventListener('click', function () {
+        window.print();
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
