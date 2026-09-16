@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Edison Tarambis · CV — Ingeniero de Automatización de Pruebas</title>
 <meta name="description" content="Currículum online de Edison Giovanny Tarambis Enriquez, Ingeniero de Automatización de Pruebas (QA / SDET).">
+<script>
+  // Aplica el tema guardado ANTES de pintar la página, para evitar el "flash" del tema equivocado.
+  (function () {
+    try {
+      var saved = localStorage.getItem('cv-theme');
+      var theme = saved === 'light' || saved === 'dark'
+        ? saved
+        : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) { /* localStorage no disponible: se queda en tema claro por defecto */ }
+  })();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
@@ -12,11 +24,31 @@
   :root{
     --azul-petroleo:#294F5E;
     --azul-petroleo-dark:#1D3A46;
+    --accent-text:#294F5E;
     --texto:#333333;
+    --texto-muted:#5a5a5a;
     --fondo-secundario:#F5F5F7;
     --linea:#E3E3E0;
     --blanco:#FFFFFF;
+    --bg-page:#E9E9EC;
+    --topbar-bg:rgba(255,255,255,.92);
+    --topbar-border:#E3E3E0;
     --sombra: 0 2px 10px rgba(0,0,0,.06);
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  [data-theme="dark"]{
+    --texto:#E4E6E8;
+    --texto-muted:#A8AEB3;
+    --fondo-secundario:#141B20;
+    --linea:#2C363C;
+    --blanco:#1B2329;
+    --bg-page:#0C1114;
+    --accent-text:#75B4CB;
+    --topbar-bg:rgba(18,24,28,.92);
+    --topbar-border:#2C363C;
+    --sombra: 0 2px 14px rgba(0,0,0,.55);
   }
 
   *,*::before,*::after{box-sizing:border-box;}
@@ -27,12 +59,12 @@
     margin:0;
     font-family:'Roboto', Arial, sans-serif;
     color:var(--texto);
-    background:#E9E9EC;
+    background:var(--bg-page);
     line-height:1.5;
     -webkit-font-smoothing:antialiased;
   }
 
-  a{color:var(--azul-petroleo); text-decoration:none;}
+  a{color:var(--accent-text); text-decoration:none;}
   a:hover{text-decoration:underline;}
 
   :focus-visible{
@@ -41,32 +73,220 @@
     border-radius:2px;
   }
 
-  /* ===== Botón Descargar PDF ===== */
-  .toolbar{
-    position:fixed;
-    top:16px;
-    right:16px;
-    z-index:100;
+  [hidden]{display:none !important;}
+
+  /* ===== Barra superior (topbar) ===== */
+  .topbar{
+    position:sticky;
+    top:0;
+    z-index:200;
+    background:var(--topbar-bg);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--topbar-border);
+    padding-top:env(safe-area-inset-top, 0px);
   }
-  .btn-download{
+  .topbar-inner{
+    max-width:1040px;
+    margin:0 auto;
+    padding:.6rem 1rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:.75rem;
+  }
+  .topbar-brand{
+    font-size:.88rem;
+    font-weight:700;
+    color:var(--texto);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .topbar-brand span{
+    font-weight:300;
+    color:var(--texto-muted);
+  }
+  .topbar-actions{
+    display:flex;
+    align-items:center;
+    gap:.4rem;
+    flex-wrap:nowrap;
+  }
+  .topbar-icon-btn{
     display:inline-flex;
     align-items:center;
-    gap:8px;
-    background:var(--azul-petroleo);
-    color:#fff;
+    justify-content:center;
+    width:36px;
+    height:36px;
+    flex:none;
     border:none;
-    padding:.7rem 1.1rem;
-    border-radius:8px;
-    font-family:inherit;
-    font-size:.9rem;
-    font-weight:500;
+    background:transparent;
+    color:var(--texto);
+    border-radius:50%;
     cursor:pointer;
-    box-shadow:0 4px 14px rgba(0,0,0,.22);
-    transition:background .15s ease, transform .15s ease;
+    transition:background .15s ease, color .15s ease;
   }
-  .btn-download:hover{background:var(--azul-petroleo-dark); transform:translateY(-1px);}
-  .btn-download:active{transform:translateY(0);}
-  .btn-download svg{width:18px; height:18px; flex:none;}
+  .topbar-icon-btn:hover{background:var(--fondo-secundario);}
+  .topbar-icon-btn svg{width:19px; height:19px;}
+
+  .topbar-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:.35rem;
+    border:1px solid var(--accent-text);
+    color:var(--accent-text);
+    background:transparent;
+    font-family:inherit;
+    font-size:.78rem;
+    font-weight:500;
+    padding:.4rem .85rem;
+    border-radius:999px;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:background .15s ease, color .15s ease;
+  }
+  .topbar-pill:hover{background:var(--accent-text); color:#fff;}
+  .topbar-pill svg{width:14px; height:14px; flex:none;}
+
+  /* Selector de idioma */
+  .topbar-lang{position:relative;}
+  .topbar-lang-btn{
+    width:auto;
+    padding:0 .4rem 0 .5rem;
+    border-radius:18px;
+    gap:.3rem;
+    font-size:1rem;
+  }
+  .topbar-lang-btn svg{width:12px; height:12px; color:var(--texto-muted);}
+
+  /* Menú desplegable genérico (idioma / compartir) */
+  .dropdown-menu{
+    position:absolute;
+    top:calc(100% + 8px);
+    right:0;
+    margin:0;
+    padding:.35rem;
+    list-style:none;
+    background:var(--blanco);
+    border:1px solid var(--linea);
+    border-radius:10px;
+    box-shadow:0 8px 24px rgba(0,0,0,.18);
+    min-width:150px;
+    z-index:210;
+  }
+  .lang-menu li{
+    display:flex;
+    align-items:center;
+    gap:.5rem;
+    font-size:.85rem;
+    padding:.5rem .6rem;
+    border-radius:6px;
+    cursor:pointer;
+    color:var(--texto);
+  }
+  .lang-menu li:hover, .lang-menu li:focus-visible{background:var(--fondo-secundario);}
+  .lang-menu li[aria-selected="true"]{font-weight:700; color:var(--accent-text);}
+
+  /* Compartir en redes sociales */
+  .topbar-share{position:relative;}
+  .share-menu{min-width:190px;}
+  .share-item{
+    display:flex;
+    align-items:center;
+    gap:.65rem;
+    width:100%;
+    border:none;
+    background:transparent;
+    font-family:inherit;
+    font-size:.85rem;
+    padding:.55rem .6rem;
+    border-radius:6px;
+    cursor:pointer;
+    color:var(--texto);
+    text-align:left;
+  }
+  .share-item:hover, .share-item:focus-visible{background:var(--fondo-secundario);}
+  .share-item svg{width:18px; height:18px; flex:none; fill:currentColor;}
+  .share-linkedin{color:#0A66C2;}
+  .share-x{color:#000;}
+  [data-theme="dark"] .share-x{color:#fff;}
+  .share-facebook{color:#1877F2;}
+  .share-whatsapp{color:#25D366;}
+  .share-telegram{color:#24A1DE;}
+  .share-copy{color:var(--texto-muted);}
+  .share-copy svg{fill:none; stroke:currentColor;}
+
+  /* ===== Toast ===== */
+  .toast{
+    position:fixed;
+    left:50%;
+    bottom:calc(24px + env(safe-area-inset-bottom, 0px));
+    transform:translateX(-50%);
+    background:var(--azul-petroleo-dark);
+    color:#fff;
+    font-size:.85rem;
+    padding:.65rem 1.1rem;
+    border-radius:8px;
+    box-shadow:0 6px 18px rgba(0,0,0,.28);
+    z-index:400;
+  }
+
+  /* ===== Modal "Cómo funciona" ===== */
+  .modal-backdrop{
+    position:fixed;
+    inset:0;
+    background:rgba(10,14,16,.55);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:1.25rem;
+    z-index:300;
+  }
+  .modal{
+    position:relative;
+    background:var(--blanco);
+    color:var(--texto);
+    max-width:440px;
+    width:100%;
+    border-radius:12px;
+    padding:1.75rem 1.5rem 1.5rem;
+    box-shadow:0 20px 50px rgba(0,0,0,.35);
+  }
+  .modal h2{
+    font-size:1.05rem;
+    margin:0 0 1rem;
+    color:var(--accent-text);
+    padding-right:1.5rem;
+  }
+  .modal-list{
+    margin:0;
+    padding:0;
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:.75rem;
+  }
+  .modal-list li{
+    font-size:.86rem;
+    line-height:1.5;
+  }
+  .modal-list strong{color:var(--texto);}
+  .modal-close{
+    position:absolute;
+    top:.75rem;
+    right:.75rem;
+    width:32px;
+    height:32px;
+    border:none;
+    background:transparent;
+    color:var(--texto-muted);
+    font-size:1.3rem;
+    line-height:1;
+    cursor:pointer;
+    border-radius:50%;
+  }
+  .modal-close:hover{background:var(--fondo-secundario);}
 
   /* ===== Contenedor / hoja tipo CV ===== */
   .page-wrap{
@@ -98,7 +318,7 @@
   .sidebar-header{
     background:var(--azul-petroleo);
     color:#fff;
-    padding:2.75rem 1.5rem 4.5rem;
+    padding:2.75rem 1.5rem 2rem;
     text-align:center;
     position:relative;
   }
@@ -136,8 +356,7 @@
   }
 
   .sidebar-body{
-    padding:0 1.5rem 2rem;
-    margin-top:-2.25rem;
+    padding:1.5rem 1.5rem 2rem;
   }
 
   .sidebar-section{
@@ -153,10 +372,10 @@
     font-weight:700;
     text-transform:uppercase;
     letter-spacing:.6px;
-    color:var(--azul-petroleo);
+    color:var(--accent-text);
     margin:0 0 .9rem;
     padding-bottom:.4rem;
-    border-bottom:2px solid var(--azul-petroleo);
+    border-bottom:2px solid var(--accent-text);
   }
 
   /* Datos personales */
@@ -178,7 +397,7 @@
     flex:none;
     width:16px; height:16px;
     margin-top:2px;
-    color:var(--azul-petroleo);
+    color:var(--accent-text);
   }
 
   /* Teléfono: se muestra como etiqueta y revela el número al pasar el mouse / foco */
@@ -187,7 +406,7 @@
     display:inline-block;
     cursor:help;
     color:inherit;
-    border-bottom:1px dotted var(--azul-petroleo);
+    border-bottom:1px dotted var(--accent-text);
   }
   .phone-reveal:hover{
     text-decoration:none;
@@ -232,7 +451,7 @@
     font-size:.75rem;
     font-weight:700;
     margin:0 0 .5rem;
-    color:var(--azul-petroleo-dark);
+    color:var(--accent-text);
   }
   .skill-tags{
     display:flex;
@@ -258,7 +477,7 @@
     font-size:.82rem;
     margin-bottom:.3rem;
   }
-  .lang-top .nivel{color:#666; font-weight:300;}
+  .lang-top .nivel{color:var(--texto-muted); font-weight:300;}
   .lang-bar{
     height:6px;
     background:var(--linea);
@@ -268,7 +487,7 @@
   .lang-bar span{
     display:block;
     height:100%;
-    background:var(--azul-petroleo);
+    background:var(--accent-text);
     border-radius:4px;
   }
 
@@ -281,7 +500,7 @@
     gap:.55rem;
   }
   .hobbies-list li{display:flex; gap:.6rem; align-items:flex-start;}
-  .hobbies-list svg{flex:none; width:16px; height:16px; margin-top:2px; color:var(--azul-petroleo);}
+  .hobbies-list svg{flex:none; width:16px; height:16px; margin-top:2px; color:var(--accent-text);}
 
   /* Ola decorativa */
   .sidebar-wave{
@@ -305,7 +524,7 @@
   .main h2.section-title{
     font-size:1.05rem;
     font-weight:700;
-    color:var(--azul-petroleo);
+    color:var(--accent-text);
     text-transform:uppercase;
     letter-spacing:.5px;
     margin:0 0 .55rem;
@@ -319,7 +538,7 @@
     left:0; bottom:-2px;
     width:56px;
     height:2px;
-    background:var(--azul-petroleo);
+    background:var(--accent-text);
   }
 
   .main-section{
@@ -350,11 +569,11 @@
   }
   .edu-main span{
     font-size:.85rem;
-    color:#5a5a5a;
+    color:var(--texto-muted);
   }
   .edu-fecha{
     font-size:.82rem;
-    color:var(--azul-petroleo);
+    color:var(--accent-text);
     font-weight:500;
     white-space:nowrap;
   }
@@ -385,14 +604,14 @@
   }
   .exp-head .fecha{
     font-size:.8rem;
-    color:var(--azul-petroleo);
+    color:var(--accent-text);
     font-weight:500;
     white-space:nowrap;
     flex:none;
   }
   .exp-empresa{
     font-size:.85rem;
-    color:#5a5a5a;
+    color:var(--texto-muted);
     margin:.15rem 0 .7rem;
     font-style:italic;
   }
@@ -410,9 +629,9 @@
   .exp-tools{
     margin-top:.7rem;
     font-size:.8rem;
-    color:#555;
+    color:var(--texto-muted);
   }
-  .exp-tools strong{color:var(--azul-petroleo-dark);}
+  .exp-tools strong{color:var(--accent-text);}
 
   /* Cursos */
   .courses-list{
@@ -434,13 +653,13 @@
   .courses-list li:last-child{border-bottom:none;}
   .course-name{color:var(--texto);}
   .course-horas{
-    color:#777;
+    color:var(--texto-muted);
     font-weight:300;
     white-space:nowrap;
     margin-left:.5rem;
   }
   .course-year{
-    color:var(--azul-petroleo);
+    color:var(--accent-text);
     font-weight:700;
     white-space:nowrap;
     flex:none;
@@ -458,7 +677,7 @@
     padding:.85rem 1rem;
     background:var(--fondo-secundario);
     border-radius:8px;
-    border-left:3px solid var(--azul-petroleo);
+    border-left:3px solid var(--accent-text);
   }
   .ref-item strong{
     display:block;
@@ -468,13 +687,13 @@
   }
   .ref-item span{
     display:block;
-    color:#5a5a5a;
+    color:var(--texto-muted);
   }
 
   footer.credit{
     text-align:center;
     font-size:.75rem;
-    color:#888;
+    color:var(--texto-muted);
     padding:1.5rem 1rem 2.5rem;
   }
 
@@ -482,6 +701,13 @@
   @media (max-width: 800px){
     .main{padding:2.25rem 1.5rem;}
     .sidebar{flex-basis:240px; width:240px;}
+  }
+
+  @media (max-width: 640px){
+    .topbar-brand{display:none;}
+    .topbar-pill .pill-label{display:none;}
+    .topbar-pill{padding:0; width:36px; height:36px; border-radius:50%;}
+    .topbar-actions{gap:.15rem;}
   }
 
   @media (max-width: 560px){
@@ -495,12 +721,21 @@
     .sidebar-wave{display:none;}
     .main{padding:2rem 1.25rem 3rem;}
     .refs-grid{grid-template-columns:1fr;}
-    .toolbar{top:auto; bottom:16px; right:16px;}
     .exp-head, .edu-item{flex-direction:column; gap:.15rem;}
   }
 
   /* ===== Impresión ===== */
   @media print{
+    :root, [data-theme="dark"]{
+      --texto:#333333;
+      --texto-muted:#5a5a5a;
+      --fondo-secundario:#F5F5F7;
+      --linea:#E3E3E0;
+      --blanco:#FFFFFF;
+      --bg-page:#FFFFFF;
+      --accent-text:#294F5E;
+      --sombra:none;
+    }
     @page{
       size:A4;
       margin:0;
@@ -509,39 +744,128 @@
       background:#fff;
       margin:0;
     }
-    .toolbar{display:none !important;}
-    .page-wrap{padding:0;}
+    .topbar, .toast, .modal-backdrop{display:none !important;}
+    .page-wrap{padding:0; display:block;}
+
+    /*
+      La versión en pantalla usa flexbox para las dos columnas, pero al imprimir
+      un contenedor flex se "rebana" en páginas como una sola fila: cada página
+      reserva la altura de la columna MÁS ALTA (la principal) aunque la barra
+      lateral ya haya terminado su contenido, dejando huecos en blanco enormes.
+      Para impresión cambiamos a flotantes: cada columna fluye y salta de
+      página de forma independiente, sin dejar espacios vacíos.
+    */
     .cv{
+      display:block;
       max-width:none;
       width:100%;
       box-shadow:none;
       border-radius:0;
     }
+    .cv::after{content:""; display:table; clear:both;}
+    .sidebar{
+      float:left;
+      width:280px;
+    }
+    .main{
+      display:block;
+      margin-left:280px; /* ancho fijo del sidebar, en vez de un contexto de bloque
+        (overflow:hidden) cuyo ancho "auto" varía según en qué página termine
+        el flotante, lo que recortaba el texto en las páginas siguientes */
+      width:auto;
+    }
+    .sidebar-wave{display:none;}
+
     .exp-item, .ref-item, .edu-item, .skill-group, .lang-item{
       break-inside:avoid;
       page-break-inside:avoid;
     }
-    .main-section{
-      break-inside:avoid-page;
+    /* Solo evita que un título de sección quede solo al pie de una página;
+       ya no fuerza a que TODA la sección (p.ej. los 19 cursos) empiece en
+       una página nueva, para no dejar huecos en blanco al final de la anterior. */
+    .main h2.section-title{
+      break-after:avoid-page;
+    }
+    .courses-list li{
+      break-inside:avoid;
+      page-break-inside:avoid;
     }
     a{color:inherit; text-decoration:none;}
     footer.credit{display:none;}
-    .sidebar-wave svg path{fill:var(--azul-petroleo) !important;}
   }
 </style>
 </head>
 <body>
 
-<div class="toolbar">
-  <button class="btn-download" id="btnDescargar" type="button" aria-label="Descargar CV en PDF">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-      <polyline points="7 10 12 15 17 10"></polyline>
-      <line x1="12" y1="15" x2="12" y2="3"></line>
-    </svg>
-    Descargar PDF
-  </button>
-</div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-brand">Edison Tarambis <span>· CV</span></div>
+    <div class="topbar-actions">
+
+      <button id="btnTheme" class="topbar-icon-btn" type="button">
+        <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg id="iconSun" hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+
+      <div class="topbar-share" id="shareSwitcher">
+        <button id="btnShare" class="topbar-icon-btn" type="button" aria-haspopup="menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+        </button>
+        <ul class="dropdown-menu share-menu" id="shareMenu" role="menu" hidden>
+          <li role="none"><button role="menuitem" type="button" class="share-item share-linkedin" data-network="linkedin">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.028-3.037-1.853-3.037-1.854 0-2.137 1.445-2.137 2.939v5.667H9.351V9h3.414v1.561h.048c.476-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zM7.114 20.452H3.558V9h3.556v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
+            <span>LinkedIn</span>
+          </button></li>
+          <li role="none"><button role="menuitem" type="button" class="share-item share-x" data-network="x">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"></path></svg>
+            <span>X (Twitter)</span>
+          </button></li>
+          <li role="none"><button role="menuitem" type="button" class="share-item share-facebook" data-network="facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.675 0h-21.35C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24h11.495v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24h-1.918c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.407 24 24 23.407 24 22.675V1.325C24 .593 23.407 0 22.675 0z"></path></svg>
+            <span>Facebook</span>
+          </button></li>
+          <li role="none"><button role="menuitem" type="button" class="share-item share-whatsapp" data-network="whatsapp">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .105 5.359.105 11.94c0 2.103.549 4.155 1.588 5.967L0 24l6.259-1.649c1.746.951 3.71 1.452 5.786 1.452h.005c6.585 0 11.943-5.358 11.943-11.941 0-3.191-1.24-6.188-3.473-8.413z"></path></svg>
+            <span>WhatsApp</span>
+          </button></li>
+          <li role="none"><button role="menuitem" type="button" class="share-item share-telegram" data-network="telegram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.29l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.14-3.06-2 1.93c-.23.23-.42.42-.84.42z"></path></svg>
+            <span>Telegram</span>
+          </button></li>
+          <li role="none"><button role="menuitem" type="button" class="share-item share-copy" data-network="copy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 7h3a5 5 0 0 1 0 10h-3m-6 0H6A5 5 0 0 1 6 7h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+            <span data-i18n="share_copy_label">Copiar enlace</span>
+          </button></li>
+        </ul>
+      </div>
+
+      <button id="btnHowItWorks" class="topbar-pill" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        <span class="pill-label" data-i18n="howworks_label">Cómo funciona este CV</span>
+      </button>
+
+      <div class="topbar-lang" id="langSwitcher">
+        <button id="btnLang" class="topbar-icon-btn topbar-lang-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <span id="langFlag" aria-hidden="true">🇪🇸</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <ul class="dropdown-menu lang-menu" id="langMenu" role="listbox" hidden>
+          <li role="option" data-lang="es" aria-selected="true"><span aria-hidden="true">🇪🇸</span> Español</li>
+          <li role="option" data-lang="en" aria-selected="false"><span aria-hidden="true">🇺🇸</span> English</li>
+        </ul>
+      </div>
+
+      <button id="btnPrint" class="topbar-icon-btn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+      </button>
+
+      <button id="btnDescargar" class="topbar-icon-btn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      </button>
+
+    </div>
+  </div>
+</header>
 
 <div class="page-wrap">
   <main class="cv">
@@ -551,13 +875,13 @@
       <div class="sidebar-header">
         <div class="avatar" aria-hidden="true">ET</div>
         <h1>Edison Giovanny<br>Tarambis Enriquez</h1>
-        <p class="rol">Ingeniero de Automatización<br>de Pruebas (QA / SDET)</p>
+        <p class="rol" data-i18n="brand_role">Ingeniero de Automatización<br>de Pruebas (QA / SDET)</p>
       </div>
 
       <div class="sidebar-body">
 
         <section class="sidebar-section" aria-labelledby="datos-personales-h">
-          <h2 id="datos-personales-h">Datos personales</h2>
+          <h2 id="datos-personales-h" data-i18n="h_datos">Datos personales</h2>
           <ul class="contact-list">
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z" opacity="0"></path><path d="M22 6l-10 7L2 6"></path><path d="M2 6h20v12H2z"></path></svg>
@@ -580,16 +904,16 @@
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 4-7 8-7s8 3 8 7"></path></svg>
-              <span>Ecuatoriano</span>
+              <span data-i18n="nationality">Ecuatoriano</span>
             </li>
           </ul>
         </section>
 
         <section class="sidebar-section" aria-labelledby="skills-h">
-          <h2 id="skills-h">Habilidades técnicas</h2>
+          <h2 id="skills-h" data-i18n="h_skills">Habilidades técnicas</h2>
 
           <div class="skill-group">
-            <h3>Automatización de pruebas</h3>
+            <h3 data-i18n="h_skill_test">Automatización de pruebas</h3>
             <div class="skill-tags">
               <span>Selenium WebDriver</span><span>Serenity BDD</span><span>Cucumber</span>
               <span>Karate DSL</span><span>Playwright</span><span>K6</span><span>Postman</span>
@@ -597,7 +921,7 @@
           </div>
 
           <div class="skill-group">
-            <h3>Programación</h3>
+            <h3 data-i18n="h_skill_prog">Programación</h3>
             <div class="skill-tags">
               <span>Java</span><span>JavaScript</span><span>TypeScript</span><span>Python</span>
               <span>SQL (Oracle, PostgreSQL, MySQL)</span><span>PL/SQL</span><span>Git/GitHub</span>
@@ -613,7 +937,7 @@
           </div>
 
           <div class="skill-group">
-            <h3>Metodologías</h3>
+            <h3 data-i18n="h_skill_method">Metodologías</h3>
             <div class="skill-tags">
               <span>Agile/Scrum</span><span>BDD/TDD</span><span>Shift-Left Testing</span>
               <span>Risk-Based Testing</span>
@@ -621,39 +945,39 @@
           </div>
 
           <div class="skill-group">
-            <h3>Gestión</h3>
+            <h3 data-i18n="h_skill_mgmt">Gestión</h3>
             <div class="skill-tags">
-              <span>JIRA</span><span>TestRail</span><span>Liderazgo de equipos</span><span>Mentoría técnica</span>
+              <span>JIRA</span><span>TestRail</span><span data-i18n="skill_leadership">Liderazgo de equipos</span><span data-i18n="skill_mentoring">Mentoría técnica</span>
             </div>
           </div>
         </section>
 
         <section class="sidebar-section" aria-labelledby="idiomas-h">
-          <h2 id="idiomas-h">Idiomas</h2>
+          <h2 id="idiomas-h" data-i18n="h_idiomas">Idiomas</h2>
           <div class="lang-item">
-            <div class="lang-top"><span>Español</span><span class="nivel">Nativo</span></div>
+            <div class="lang-top"><span data-i18n="lang_es_label">Español</span><span class="nivel" data-i18n="lvl_native">Nativo</span></div>
             <div class="lang-bar"><span style="width:100%"></span></div>
           </div>
           <div class="lang-item">
-            <div class="lang-top"><span>Inglés</span><span class="nivel">Profesional - técnico</span></div>
+            <div class="lang-top"><span data-i18n="lang_en_label">Inglés</span><span class="nivel" data-i18n="lvl_prof">Profesional - técnico</span></div>
             <div class="lang-bar"><span style="width:80%"></span></div>
           </div>
         </section>
 
         <section class="sidebar-section" aria-labelledby="aficiones-h">
-          <h2 id="aficiones-h">Aficiones e intereses</h2>
+          <h2 id="aficiones-h" data-i18n="h_aficiones">Aficiones e intereses</h2>
           <ul class="hobbies-list">
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"></path><line x1="9" y1="21" x2="15" y2="21"></line><line x1="10" y1="17" x2="10" y2="21"></line><line x1="14" y1="17" x2="14" y2="21"></line></svg>
-              <span>Investigación de IA y metodologías ágiles</span>
+              <span data-i18n="hobby1">Investigación de IA y metodologías ágiles</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"></path><path d="M18.7 8l-5.1 5.1-3-3L3 17.4"></path></svg>
-              <span>Tendencias de QA</span>
+              <span data-i18n="hobby2">Tendencias de QA</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-              <span>Pensamiento estructurado</span>
+              <span data-i18n="hobby3">Pensamiento estructurado</span>
             </li>
           </ul>
         </section>
@@ -671,20 +995,23 @@
     <section class="main">
 
       <section class="main-section" aria-labelledby="perfil-h">
-        <h2 class="section-title" id="perfil-h">Perfil profesional</h2>
-        <p class="perfil-texto">
-          Ingeniero en Informática con MBA, especializado en arquitectura de frameworks de automatización
-          web/móvil desde cero con Playwright, Appium, Serenity BDD, TypeScript y Java. Enfocado en Clean Code,
-          pruebas de API, pruebas de rendimiento, seeding/mocks de datos y pipelines de CI/CD.
+        <h2 class="section-title" id="perfil-h" data-i18n="h_perfil">Perfil profesional</h2>
+        <p class="perfil-texto" data-i18n="perfil_text">
+          Ingeniero en Informática con MBA y amplia trayectoria en desarrollo y automatización de
+          pruebas (QA Automation / SDET). Especializado en la arquitectura, diseño e implementación de
+          frameworks de automatización web y móvil desde cero utilizando Playwright, Appium, Serenity BDD,
+          TypeScript y Java. Apasionado por los principios de Clean Code, diseño de software robusto,
+          pruebas de API, pruebas de rendimiento y estrategias de datos (seeding y mocks) para optimizar
+          pipelines de CI/CD y garantizar entregas de software continuas, escalables y sin fricciones.
         </p>
       </section>
 
       <section class="main-section" aria-labelledby="formacion-h">
-        <h2 class="section-title" id="formacion-h">Formación</h2>
+        <h2 class="section-title" id="formacion-h" data-i18n="h_formacion">Formación</h2>
 
         <div class="edu-item">
           <div class="edu-main">
-            <strong>MBA Administración de Empresas</strong>
+            <strong data-i18n="edu1_title">MBA Administración de Empresas</strong>
             <span>Universidad Central del Ecuador</span>
           </div>
           <div class="edu-fecha">2013 — 2015</div>
@@ -692,7 +1019,7 @@
 
         <div class="edu-item">
           <div class="edu-main">
-            <strong>Ingeniería en Informática</strong>
+            <strong data-i18n="edu2_title">Ingeniería en Informática</strong>
             <span>Universidad Central del Ecuador</span>
           </div>
           <div class="edu-fecha">1998 — 2006</div>
@@ -700,118 +1027,118 @@
       </section>
 
       <section class="main-section" aria-labelledby="experiencia-h">
-        <h2 class="section-title" id="experiencia-h">Experiencia profesional</h2>
+        <h2 class="section-title" id="experiencia-h" data-i18n="h_experiencia">Experiencia profesional</h2>
 
         <article class="exp-item">
           <div class="exp-head">
-            <h3>Ingeniero de Automatización</h3>
-            <span class="fecha">Dic 2021 — Presente</span>
+            <h3 data-i18n="job1_title">Ingeniero de Automatización</h3>
+            <span class="fecha" data-i18n="job1_dates">Dic 2021 — Presente</span>
           </div>
           <p class="exp-empresa">Banco Pichincha, Quito</p>
           <ul>
-            <li><strong>Diseñé y lideré desde cero un framework de automatización end-to-end</strong> con Playwright y TypeScript, reduciendo el tiempo de regresión manual en múltiples aplicaciones bancarias.</li>
-            <li><strong>Implementé pruebas de automatización móvil con Appium</strong> integradas al pipeline de CI/CD para apps de banca digital.</li>
-            <li><strong>Establecí pruebas de API y de rendimiento</strong>, incorporando seeding y mocks de datos para escenarios estables y repetibles.</li>
-            <li><strong>Impulsé prácticas de Clean Code y Shift-Left Testing</strong> junto a mentoría técnica a nuevos integrantes del equipo de calidad.</li>
+            <li data-i18n="job1_b1"><strong>Diseñé y lideré desde cero un framework de automatización end-to-end</strong> con Playwright y TypeScript, reduciendo el tiempo de regresión manual en múltiples aplicaciones bancarias.</li>
+            <li data-i18n="job1_b2"><strong>Implementé pruebas de automatización móvil con Appium</strong> integradas al pipeline de CI/CD para apps de banca digital.</li>
+            <li data-i18n="job1_b3"><strong>Establecí pruebas de API y de rendimiento</strong>, incorporando seeding y mocks de datos para escenarios estables y repetibles.</li>
+            <li data-i18n="job1_b4"><strong>Impulsé prácticas de Clean Code y Shift-Left Testing</strong> junto a mentoría técnica a nuevos integrantes del equipo de calidad.</li>
           </ul>
           <p class="exp-tools"><strong>Tools:</strong> Playwright, Appium, Serenity BDD, TypeScript, Java, Azure DevOps, Docker, Postman, K6, SonarCloud</p>
         </article>
 
         <article class="exp-item">
           <div class="exp-head">
-            <h3>Ingeniero de Calidad</h3>
-            <span class="fecha">Sep 2013 — Nov 2021</span>
+            <h3 data-i18n="job2_title">Ingeniero de Calidad</h3>
+            <span class="fecha" data-i18n="job2_dates">Sep 2013 — Nov 2021</span>
           </div>
           <p class="exp-empresa">DNTI, IESS, Quito</p>
           <ul>
-            <li><strong>Lideré la estrategia de pruebas</strong> de sistemas críticos de seguridad social, aplicando enfoques de Risk-Based Testing.</li>
-            <li><strong>Construí suites de automatización con Selenium WebDriver y Serenity BDD</strong> integradas con Cucumber para pruebas BDD/TDD.</li>
-            <li><strong>Automaticé pruebas de servicios con Karate DSL</strong>, mejorando la cobertura y trazabilidad de defectos.</li>
-            <li><strong>Coordiné equipos multidisciplinarios</strong> bajo metodología Agile/Scrum, gestionando incidencias en JIRA y TestRail.</li>
+            <li data-i18n="job2_b1"><strong>Lideré la estrategia de pruebas</strong> de sistemas críticos de seguridad social, aplicando enfoques de Risk-Based Testing.</li>
+            <li data-i18n="job2_b2"><strong>Construí suites de automatización con Selenium WebDriver y Serenity BDD</strong> integradas con Cucumber para pruebas BDD/TDD.</li>
+            <li data-i18n="job2_b3"><strong>Automaticé pruebas de servicios con Karate DSL</strong>, mejorando la cobertura y trazabilidad de defectos.</li>
+            <li data-i18n="job2_b4"><strong>Coordiné equipos multidisciplinarios</strong> bajo metodología Agile/Scrum, gestionando incidencias en JIRA y TestRail.</li>
           </ul>
           <p class="exp-tools"><strong>Tools:</strong> Selenium WebDriver, Serenity BDD, Cucumber, Karate DSL, Java, SQL (Oracle), JIRA, TestRail</p>
         </article>
 
         <article class="exp-item">
           <div class="exp-head">
-            <h3>Analista de Calidad</h3>
-            <span class="fecha">Ene 2010 — Sep 2013</span>
+            <h3 data-i18n="job3_title">Analista de Calidad</h3>
+            <span class="fecha" data-i18n="job3_dates">Ene 2010 — Sep 2013</span>
           </div>
           <p class="exp-empresa">SONDA S.A, Quito</p>
           <ul>
-            <li><strong>Ejecuté y documenté planes de pruebas funcionales</strong> para proyectos de integración de sistemas empresariales.</li>
-            <li><strong>Desarrollé scripts de automatización iniciales</strong> con Selenium WebDriver, sentando las bases de la disciplina QA en el equipo.</li>
-            <li><strong>Diseñé casos de prueba a partir de requerimientos</strong>, mejorando la detección temprana de defectos.</li>
+            <li data-i18n="job3_b1"><strong>Ejecuté y documenté planes de pruebas funcionales</strong> para proyectos de integración de sistemas empresariales.</li>
+            <li data-i18n="job3_b2"><strong>Desarrollé scripts de automatización iniciales</strong> con Selenium WebDriver, sentando las bases de la disciplina QA en el equipo.</li>
+            <li data-i18n="job3_b3"><strong>Diseñé casos de prueba a partir de requerimientos</strong>, mejorando la detección temprana de defectos.</li>
           </ul>
           <p class="exp-tools"><strong>Tools:</strong> Selenium WebDriver, SQL, PL/SQL, JIRA</p>
         </article>
 
         <article class="exp-item">
           <div class="exp-head">
-            <h3>Administrador de Servidores</h3>
-            <span class="fecha">2006 — Nov 2009</span>
+            <h3 data-i18n="job4_title">Administrador de Servidores</h3>
+            <span class="fecha" data-i18n="job4_dates">2006 — Nov 2009</span>
           </div>
           <p class="exp-empresa">Compuseg Ltda., Quito</p>
           <ul>
-            <li><strong>Administré infraestructura de servidores</strong> garantizando disponibilidad y continuidad operativa.</li>
-            <li><strong>Implementé procesos de monitoreo y respaldo</strong>, reduciendo tiempos de indisponibilidad.</li>
+            <li data-i18n="job4_b1"><strong>Administré infraestructura de servidores</strong> garantizando disponibilidad y continuidad operativa.</li>
+            <li data-i18n="job4_b2"><strong>Implementé procesos de monitoreo y respaldo</strong>, reduciendo tiempos de indisponibilidad.</li>
           </ul>
           <p class="exp-tools"><strong>Tools:</strong> Administración de servidores, Bases de datos, Redes</p>
         </article>
 
         <article class="exp-item">
           <div class="exp-head">
-            <h3>Asistente de Sistemas</h3>
-            <span class="fecha">2006 — 2007</span>
+            <h3 data-i18n="job5_title">Asistente de Sistemas</h3>
+            <span class="fecha" data-i18n="job5_dates">2006 — 2007</span>
           </div>
           <p class="exp-empresa">Repact Contact Center, Quito</p>
           <ul>
-            <li><strong>Brindé soporte técnico de primer nivel</strong> a la plataforma tecnológica del centro de contacto.</li>
-            <li><strong>Colaboré en el mantenimiento de sistemas y bases de datos</strong> del área operativa.</li>
+            <li data-i18n="job5_b1"><strong>Brindé soporte técnico de primer nivel</strong> a la plataforma tecnológica del centro de contacto.</li>
+            <li data-i18n="job5_b2"><strong>Colaboré en el mantenimiento de sistemas y bases de datos</strong> del área operativa.</li>
           </ul>
           <p class="exp-tools"><strong>Tools:</strong> Soporte técnico, SQL, Sistemas operativos</p>
         </article>
       </section>
 
       <section class="main-section" aria-labelledby="cursos-h">
-        <h2 class="section-title" id="cursos-h">Cursos y certificaciones</h2>
+        <h2 class="section-title" id="cursos-h" data-i18n="h_cursos">Cursos y certificaciones</h2>
         <ul class="courses-list">
-          <li><span class="course-name">Automatización de pruebas con Playwright y TypeScript <span class="course-horas">(40h)</span></span><span class="course-year">2026</span></li>
-          <li><span class="course-name">Fundamentos de IA aplicada a QA y Testing Inteligente <span class="course-horas">(24h)</span></span><span class="course-year">2025</span></li>
-          <li><span class="course-name">Serenity BDD avanzado con Screenplay Pattern <span class="course-horas">(30h)</span></span><span class="course-year">2025</span></li>
-          <li><span class="course-name">Pruebas de rendimiento con K6 <span class="course-horas">(20h)</span></span><span class="course-year">2024</span></li>
-          <li><span class="course-name">Automatización móvil con Appium <span class="course-horas">(32h)</span></span><span class="course-year">2024</span></li>
-          <li><span class="course-name">CI/CD con Azure DevOps Pipelines <span class="course-horas">(24h)</span></span><span class="course-year">2024</span></li>
-          <li><span class="course-name">Karate DSL para pruebas de API <span class="course-horas">(16h)</span></span><span class="course-year">2023</span></li>
-          <li><span class="course-name">Docker para entornos de pruebas <span class="course-horas">(18h)</span></span><span class="course-year">2023</span></li>
-          <li><span class="course-name">Clean Code aplicado a frameworks de automatización <span class="course-horas">(20h)</span></span><span class="course-year">2023</span></li>
-          <li><span class="course-name">SonarCloud: análisis de calidad de código <span class="course-horas">(12h)</span></span><span class="course-year">2022</span></li>
-          <li><span class="course-name">TypeScript avanzado para testers <span class="course-horas">(28h)</span></span><span class="course-year">2022</span></li>
-          <li><span class="course-name">AWS Cloud Practitioner Essentials <span class="course-horas">(24h)</span></span><span class="course-year">2022</span></li>
-          <li><span class="course-name">Cucumber y BDD para equipos ágiles <span class="course-horas">(16h)</span></span><span class="course-year">2021</span></li>
-          <li><span class="course-name">Scrum Master: fundamentos de Agile/Scrum <span class="course-horas">(20h)</span></span><span class="course-year">2021</span></li>
-          <li><span class="course-name">Selenium WebDriver con Java <span class="course-horas">(40h)</span></span><span class="course-year">2020</span></li>
-          <li><span class="course-name">Postman: automatización de pruebas de API <span class="course-horas">(14h)</span></span><span class="course-year">2020</span></li>
-          <li><span class="course-name">PL/SQL avanzado para bases de datos Oracle <span class="course-horas">(30h)</span></span><span class="course-year">2020</span></li>
-          <li><span class="course-name">Risk-Based Testing y estrategias de priorización <span class="course-horas">(16h)</span></span><span class="course-year">2019</span></li>
-          <li><span class="course-name">Fundamentos de Git y GitHub para equipos de desarrollo <span class="course-horas">(12h)</span></span><span class="course-year">2019</span></li>
+          <li><span class="course-name"><span data-i18n="crs1">Automatización de pruebas con Playwright y TypeScript</span> <span class="course-horas">(40h)</span></span><span class="course-year">2026</span></li>
+          <li><span class="course-name"><span data-i18n="crs2">Fundamentos de IA aplicada a QA y Testing Inteligente</span> <span class="course-horas">(24h)</span></span><span class="course-year">2025</span></li>
+          <li><span class="course-name"><span data-i18n="crs3">Serenity BDD avanzado con Screenplay Pattern</span> <span class="course-horas">(30h)</span></span><span class="course-year">2025</span></li>
+          <li><span class="course-name"><span data-i18n="crs4">Pruebas de rendimiento con K6</span> <span class="course-horas">(20h)</span></span><span class="course-year">2024</span></li>
+          <li><span class="course-name"><span data-i18n="crs5">Automatización móvil con Appium</span> <span class="course-horas">(32h)</span></span><span class="course-year">2024</span></li>
+          <li><span class="course-name"><span data-i18n="crs6">CI/CD con Azure DevOps Pipelines</span> <span class="course-horas">(24h)</span></span><span class="course-year">2024</span></li>
+          <li><span class="course-name"><span data-i18n="crs7">Karate DSL para pruebas de API</span> <span class="course-horas">(16h)</span></span><span class="course-year">2023</span></li>
+          <li><span class="course-name"><span data-i18n="crs8">Docker para entornos de pruebas</span> <span class="course-horas">(18h)</span></span><span class="course-year">2023</span></li>
+          <li><span class="course-name"><span data-i18n="crs9">Clean Code aplicado a frameworks de automatización</span> <span class="course-horas">(20h)</span></span><span class="course-year">2023</span></li>
+          <li><span class="course-name"><span data-i18n="crs10">SonarCloud: análisis de calidad de código</span> <span class="course-horas">(12h)</span></span><span class="course-year">2022</span></li>
+          <li><span class="course-name"><span data-i18n="crs11">TypeScript avanzado para testers</span> <span class="course-horas">(28h)</span></span><span class="course-year">2022</span></li>
+          <li><span class="course-name"><span data-i18n="crs12">AWS Cloud Practitioner Essentials</span> <span class="course-horas">(24h)</span></span><span class="course-year">2022</span></li>
+          <li><span class="course-name"><span data-i18n="crs13">Cucumber y BDD para equipos ágiles</span> <span class="course-horas">(16h)</span></span><span class="course-year">2021</span></li>
+          <li><span class="course-name"><span data-i18n="crs14">Scrum Master: fundamentos de Agile/Scrum</span> <span class="course-horas">(20h)</span></span><span class="course-year">2021</span></li>
+          <li><span class="course-name"><span data-i18n="crs15">Selenium WebDriver con Java</span> <span class="course-horas">(40h)</span></span><span class="course-year">2020</span></li>
+          <li><span class="course-name"><span data-i18n="crs16">Postman: automatización de pruebas de API</span> <span class="course-horas">(14h)</span></span><span class="course-year">2020</span></li>
+          <li><span class="course-name"><span data-i18n="crs17">PL/SQL avanzado para bases de datos Oracle</span> <span class="course-horas">(30h)</span></span><span class="course-year">2020</span></li>
+          <li><span class="course-name"><span data-i18n="crs18">Risk-Based Testing y estrategias de priorización</span> <span class="course-horas">(16h)</span></span><span class="course-year">2019</span></li>
+          <li><span class="course-name"><span data-i18n="crs19">Fundamentos de Git y GitHub para equipos de desarrollo</span> <span class="course-horas">(12h)</span></span><span class="course-year">2019</span></li>
         </ul>
       </section>
 
       <section class="main-section" aria-labelledby="referencias-h">
-        <h2 class="section-title" id="referencias-h">Referencias laborales</h2>
+        <h2 class="section-title" id="referencias-h" data-i18n="h_referencias">Referencias laborales</h2>
         <div class="refs-grid">
           <div class="ref-item">
             <strong>Ing. Fernando Vaca</strong>
-            <span>Líder de Automatización — Banco Pichincha</span>
+            <span data-i18n="ref1_role">Líder de Automatización — Banco Pichincha</span>
           </div>
           <div class="ref-item">
             <strong>Ing. María José Ron</strong>
-            <span>Coordinadora de Calidad — DNTI, IESS</span>
+            <span data-i18n="ref2_role">Coordinadora de Calidad — DNTI, IESS</span>
           </div>
           <div class="ref-item">
             <strong>Ing. Patricio Salazar</strong>
-            <span>Jefe de Proyectos — SONDA S.A</span>
+            <span data-i18n="ref3_role">Jefe de Proyectos — SONDA S.A</span>
           </div>
         </div>
       </section>
@@ -821,18 +1148,361 @@
 </div>
 
 <footer class="credit">
-  © 2026 Edison Giovanny Tarambis Enriquez — CV en línea
+  <span data-i18n="footer_text">© 2026 Edison Giovanny Tarambis Enriquez — CV en línea</span>
 </footer>
+
+<!-- Modal "Cómo funciona este CV" -->
+<div class="modal-backdrop" id="howItWorksBackdrop" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="howItWorksTitle">
+    <button class="modal-close" id="btnCloseHowItWorks" type="button">&times;</button>
+    <h2 id="howItWorksTitle" data-i18n="howworks_title">Cómo funciona este CV online</h2>
+    <ul class="modal-list">
+      <li data-i18n="howworks_theme"><strong>🌙 / ☀️ Tema:</strong> cambia entre modo claro y oscuro.</li>
+      <li data-i18n="howworks_share"><strong>🔗 Compartir:</strong> abre un menú para compartirlo en LinkedIn, X, Facebook, WhatsApp, Telegram o copiar el enlace.</li>
+      <li data-i18n="howworks_lang"><strong>🇪🇸 / 🇺🇸 Idioma:</strong> traduce todo el contenido entre español e inglés.</li>
+      <li data-i18n="howworks_print"><strong>🖨️ Imprimir:</strong> abre el diálogo de impresión del navegador.</li>
+      <li data-i18n="howworks_download"><strong>⬇️ Descargar:</strong> abre el mismo diálogo para guardar el CV como PDF.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
 <script>
   (function () {
     'use strict';
-    var btn = document.getElementById('btnDescargar');
-    if (btn) {
-      btn.addEventListener('click', function () {
-        window.print();
-      });
+
+    /* ===================== Diccionario de traducción ===================== */
+    var I18N = {
+      howworks_label:{es:"Cómo funciona este CV", en:"How this CV works"},
+      howworks_title:{es:"Cómo funciona este CV online", en:"How this online CV works"},
+      howworks_theme:{es:"<strong>🌙 / ☀️ Tema:</strong> cambia entre modo claro y oscuro.", en:"<strong>🌙 / ☀️ Theme:</strong> switches between light and dark mode."},
+      howworks_share:{es:"<strong>🔗 Compartir:</strong> abre un menú para compartirlo en LinkedIn, X, Facebook, WhatsApp, Telegram o copiar el enlace.", en:"<strong>🔗 Share:</strong> opens a menu to share it on LinkedIn, X, Facebook, WhatsApp, Telegram, or copy the link."},
+      share_copy_label:{es:"Copiar enlace", en:"Copy link"},
+      howworks_lang:{es:"<strong>🇪🇸 / 🇺🇸 Idioma:</strong> traduce todo el contenido entre español e inglés.", en:"<strong>🇪🇸 / 🇺🇸 Language:</strong> translates all content between Spanish and English."},
+      howworks_print:{es:"<strong>🖨️ Imprimir:</strong> abre el diálogo de impresión del navegador.", en:"<strong>🖨️ Print:</strong> opens your browser's print dialog."},
+      howworks_download:{es:"<strong>⬇️ Descargar:</strong> abre el mismo diálogo para guardar el CV como PDF.", en:"<strong>⬇️ Download:</strong> opens the same dialog to save the CV as a PDF."},
+
+      brand_role:{es:"Ingeniero de Automatización<br>de Pruebas (QA / SDET)", en:"Test Automation<br>Engineer (QA / SDET)"},
+      h_datos:{es:"Datos personales", en:"Personal Details"},
+      h_skills:{es:"Habilidades técnicas", en:"Technical Skills"},
+      h_idiomas:{es:"Idiomas", en:"Languages"},
+      h_aficiones:{es:"Aficiones e intereses", en:"Hobbies &amp; Interests"},
+      nationality:{es:"Ecuatoriano", en:"Ecuadorian"},
+
+      h_skill_test:{es:"Automatización de pruebas", en:"Test Automation"},
+      h_skill_prog:{es:"Programación", en:"Programming"},
+      h_skill_method:{es:"Metodologías", en:"Methodologies"},
+      h_skill_mgmt:{es:"Gestión", en:"Management"},
+      skill_leadership:{es:"Liderazgo de equipos", en:"Team Leadership"},
+      skill_mentoring:{es:"Mentoría técnica", en:"Technical Mentoring"},
+
+      lang_es_label:{es:"Español", en:"Spanish"},
+      lvl_native:{es:"Nativo", en:"Native"},
+      lang_en_label:{es:"Inglés", en:"English"},
+      lvl_prof:{es:"Profesional - técnico", en:"Professional - Technical"},
+
+      hobby1:{es:"Investigación de IA y metodologías ágiles", en:"AI research &amp; agile methodologies"},
+      hobby2:{es:"Tendencias de QA", en:"QA trends"},
+      hobby3:{es:"Pensamiento estructurado", en:"Structured thinking"},
+
+      h_perfil:{es:"Perfil profesional", en:"Professional Profile"},
+      perfil_text:{
+        es:"Ingeniero en Informática con MBA y amplia trayectoria en desarrollo y automatización de pruebas (QA Automation / SDET). Especializado en la arquitectura, diseño e implementación de frameworks de automatización web y móvil desde cero utilizando Playwright, Appium, Serenity BDD, TypeScript y Java. Apasionado por los principios de Clean Code, diseño de software robusto, pruebas de API, pruebas de rendimiento y estrategias de datos (seeding y mocks) para optimizar pipelines de CI/CD y garantizar entregas de software continuas, escalables y sin fricciones.",
+        en:"Computer Engineer with an MBA and extensive experience in software development and test automation (QA Automation / SDET). Specialized in architecting, designing, and implementing web and mobile automation frameworks from scratch using Playwright, Appium, Serenity BDD, TypeScript, and Java. Passionate about Clean Code principles, robust software design, API testing, performance testing, and data strategies (seeding and mocks) to optimize CI/CD pipelines and ensure continuous, scalable, friction-free software delivery."
+      },
+
+      h_formacion:{es:"Formación", en:"Education"},
+      edu1_title:{es:"MBA Administración de Empresas", en:"MBA in Business Administration"},
+      edu2_title:{es:"Ingeniería en Informática", en:"Computer Engineering"},
+
+      h_experiencia:{es:"Experiencia profesional", en:"Professional Experience"},
+
+      job1_title:{es:"Ingeniero de Automatización", en:"Automation Engineer"},
+      job1_dates:{es:"Dic 2021 — Presente", en:"Dec 2021 — Present"},
+      job1_b1:{es:"<strong>Diseñé y lideré desde cero un framework de automatización end-to-end</strong> con Playwright y TypeScript, reduciendo el tiempo de regresión manual en múltiples aplicaciones bancarias.", en:"<strong>Designed and led an end-to-end automation framework from scratch</strong> using Playwright and TypeScript, reducing manual regression time across multiple banking applications."},
+      job1_b2:{es:"<strong>Implementé pruebas de automatización móvil con Appium</strong> integradas al pipeline de CI/CD para apps de banca digital.", en:"<strong>Implemented mobile automation testing with Appium</strong> integrated into the CI/CD pipeline for digital banking apps."},
+      job1_b3:{es:"<strong>Establecí pruebas de API y de rendimiento</strong>, incorporando seeding y mocks de datos para escenarios estables y repetibles.", en:"<strong>Established API and performance testing</strong>, incorporating data seeding and mocks for stable, repeatable scenarios."},
+      job1_b4:{es:"<strong>Impulsé prácticas de Clean Code y Shift-Left Testing</strong> junto a mentoría técnica a nuevos integrantes del equipo de calidad.", en:"<strong>Drove Clean Code and Shift-Left Testing practices</strong>, alongside technical mentoring for new QA team members."},
+
+      job2_title:{es:"Ingeniero de Calidad", en:"Quality Engineer"},
+      job2_dates:{es:"Sep 2013 — Nov 2021", en:"Sep 2013 — Nov 2021"},
+      job2_b1:{es:"<strong>Lideré la estrategia de pruebas</strong> de sistemas críticos de seguridad social, aplicando enfoques de Risk-Based Testing.", en:"<strong>Led the testing strategy</strong> for critical social security systems, applying Risk-Based Testing approaches."},
+      job2_b2:{es:"<strong>Construí suites de automatización con Selenium WebDriver y Serenity BDD</strong> integradas con Cucumber para pruebas BDD/TDD.", en:"<strong>Built automation suites with Selenium WebDriver and Serenity BDD</strong> integrated with Cucumber for BDD/TDD testing."},
+      job2_b3:{es:"<strong>Automaticé pruebas de servicios con Karate DSL</strong>, mejorando la cobertura y trazabilidad de defectos.", en:"<strong>Automated service testing with Karate DSL</strong>, improving coverage and defect traceability."},
+      job2_b4:{es:"<strong>Coordiné equipos multidisciplinarios</strong> bajo metodología Agile/Scrum, gestionando incidencias en JIRA y TestRail.", en:"<strong>Coordinated cross-functional teams</strong> under Agile/Scrum methodology, managing issues in JIRA and TestRail."},
+
+      job3_title:{es:"Analista de Calidad", en:"Quality Analyst"},
+      job3_dates:{es:"Ene 2010 — Sep 2013", en:"Jan 2010 — Sep 2013"},
+      job3_b1:{es:"<strong>Ejecuté y documenté planes de pruebas funcionales</strong> para proyectos de integración de sistemas empresariales.", en:"<strong>Executed and documented functional test plans</strong> for enterprise systems integration projects."},
+      job3_b2:{es:"<strong>Desarrollé scripts de automatización iniciales</strong> con Selenium WebDriver, sentando las bases de la disciplina QA en el equipo.", en:"<strong>Developed initial automation scripts</strong> with Selenium WebDriver, laying the foundations of the QA discipline within the team."},
+      job3_b3:{es:"<strong>Diseñé casos de prueba a partir de requerimientos</strong>, mejorando la detección temprana de defectos.", en:"<strong>Designed test cases from requirements</strong>, improving early defect detection."},
+
+      job4_title:{es:"Administrador de Servidores", en:"Server Administrator"},
+      job4_dates:{es:"2006 — Nov 2009", en:"2006 — Nov 2009"},
+      job4_b1:{es:"<strong>Administré infraestructura de servidores</strong> garantizando disponibilidad y continuidad operativa.", en:"<strong>Administered server infrastructure</strong>, ensuring availability and operational continuity."},
+      job4_b2:{es:"<strong>Implementé procesos de monitoreo y respaldo</strong>, reduciendo tiempos de indisponibilidad.", en:"<strong>Implemented monitoring and backup processes</strong>, reducing downtime."},
+
+      job5_title:{es:"Asistente de Sistemas", en:"Systems Assistant"},
+      job5_dates:{es:"2006 — 2007", en:"2006 — 2007"},
+      job5_b1:{es:"<strong>Brindé soporte técnico de primer nivel</strong> a la plataforma tecnológica del centro de contacto.", en:"<strong>Provided first-level technical support</strong> for the contact center's technology platform."},
+      job5_b2:{es:"<strong>Colaboré en el mantenimiento de sistemas y bases de datos</strong> del área operativa.", en:"<strong>Collaborated on systems and database maintenance</strong> for the operations area."},
+
+      h_cursos:{es:"Cursos y certificaciones", en:"Courses &amp; Certifications"},
+      crs1:{es:"Automatización de pruebas con Playwright y TypeScript", en:"Test Automation with Playwright and TypeScript"},
+      crs2:{es:"Fundamentos de IA aplicada a QA y Testing Inteligente", en:"Fundamentals of AI Applied to QA and Intelligent Testing"},
+      crs3:{es:"Serenity BDD avanzado con Screenplay Pattern", en:"Advanced Serenity BDD with the Screenplay Pattern"},
+      crs4:{es:"Pruebas de rendimiento con K6", en:"Performance Testing with K6"},
+      crs5:{es:"Automatización móvil con Appium", en:"Mobile Automation with Appium"},
+      crs6:{es:"CI/CD con Azure DevOps Pipelines", en:"CI/CD with Azure DevOps Pipelines"},
+      crs7:{es:"Karate DSL para pruebas de API", en:"Karate DSL for API Testing"},
+      crs8:{es:"Docker para entornos de pruebas", en:"Docker for Test Environments"},
+      crs9:{es:"Clean Code aplicado a frameworks de automatización", en:"Clean Code Applied to Automation Frameworks"},
+      crs10:{es:"SonarCloud: análisis de calidad de código", en:"SonarCloud: Code Quality Analysis"},
+      crs11:{es:"TypeScript avanzado para testers", en:"Advanced TypeScript for Testers"},
+      crs12:{es:"AWS Cloud Practitioner Essentials", en:"AWS Cloud Practitioner Essentials"},
+      crs13:{es:"Cucumber y BDD para equipos ágiles", en:"Cucumber and BDD for Agile Teams"},
+      crs14:{es:"Scrum Master: fundamentos de Agile/Scrum", en:"Scrum Master: Agile/Scrum Fundamentals"},
+      crs15:{es:"Selenium WebDriver con Java", en:"Selenium WebDriver with Java"},
+      crs16:{es:"Postman: automatización de pruebas de API", en:"Postman: API Test Automation"},
+      crs17:{es:"PL/SQL avanzado para bases de datos Oracle", en:"Advanced PL/SQL for Oracle Databases"},
+      crs18:{es:"Risk-Based Testing y estrategias de priorización", en:"Risk-Based Testing and Prioritization Strategies"},
+      crs19:{es:"Fundamentos de Git y GitHub para equipos de desarrollo", en:"Git and GitHub Fundamentals for Development Teams"},
+
+      h_referencias:{es:"Referencias laborales", en:"Professional References"},
+      ref1_role:{es:"Líder de Automatización — Banco Pichincha", en:"Automation Lead — Banco Pichincha"},
+      ref2_role:{es:"Coordinadora de Calidad — DNTI, IESS", en:"Quality Coordinator — DNTI, IESS"},
+      ref3_role:{es:"Jefe de Proyectos — SONDA S.A", en:"Project Manager — SONDA S.A"},
+
+      footer_text:{es:"© 2026 Edison Giovanny Tarambis Enriquez — CV en línea", en:"© 2026 Edison Giovanny Tarambis Enriquez — Online CV"}
+    };
+
+    var TITLES = {
+      es:"Edison Tarambis · CV — Ingeniero de Automatización de Pruebas",
+      en:"Edison Tarambis · CV — Test Automation Engineer"
+    };
+
+    var ARIA = {
+      theme_to_dark:{es:"Activar modo oscuro", en:"Enable dark mode"},
+      theme_to_light:{es:"Activar modo claro", en:"Enable light mode"},
+      share:{es:"Compartir este CV", en:"Share this CV"},
+      lang:{es:"Cambiar idioma", en:"Change language"},
+      print:{es:"Imprimir CV", en:"Print CV"},
+      download:{es:"Descargar CV en PDF", en:"Download CV as PDF"},
+      modal_close:{es:"Cerrar", en:"Close"}
+    };
+
+    var TOAST = {
+      copied:{es:"¡Enlace copiado!", en:"Link copied!"},
+      copy_error:{es:"No se pudo copiar el enlace", en:"Could not copy the link"}
+    };
+
+    var currentLang = (document.documentElement.lang === 'en') ? 'en' : 'es';
+
+    /* ===================== Tema claro / oscuro ===================== */
+    var btnTheme = document.getElementById('btnTheme');
+    var iconMoon = document.getElementById('iconMoon');
+    var iconSun = document.getElementById('iconSun');
+
+    function currentTheme() {
+      return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
     }
+
+    function applyThemeIcon() {
+      var isDark = currentTheme() === 'dark';
+      iconMoon.hidden = isDark;
+      iconSun.hidden = !isDark;
+      btnTheme.setAttribute('aria-label', isDark ? ARIA.theme_to_light[currentLang] : ARIA.theme_to_dark[currentLang]);
+      btnTheme.title = btnTheme.getAttribute('aria-label');
+    }
+
+    btnTheme.addEventListener('click', function () {
+      var next = currentTheme() === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('cv-theme', next); } catch (e) {}
+      applyThemeIcon();
+    });
+
+    /* ===================== Compartir ===================== */
+    var SHARE_TEXT = {
+      es:"Mira el CV de Edison Tarambis, Ingeniero de Automatización de Pruebas (QA/SDET)",
+      en:"Check out Edison Tarambis's CV, Test Automation Engineer (QA/SDET)"
+    };
+
+    var toastEl = document.getElementById('toast');
+    var toastTimer = null;
+
+    function showToast(msg) {
+      toastEl.textContent = msg;
+      toastEl.hidden = false;
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { toastEl.hidden = true; }, 2600);
+    }
+
+    function shareLink(network) {
+      var url = encodeURIComponent(location.href);
+      var text = encodeURIComponent(SHARE_TEXT[currentLang]);
+      switch (network) {
+        case 'linkedin': return 'https://www.linkedin.com/sharing/share-offsite/?url=' + url;
+        case 'x':        return 'https://twitter.com/intent/tweet?url=' + url + '&text=' + text;
+        case 'facebook':  return 'https://www.facebook.com/sharer/sharer.php?u=' + url;
+        case 'whatsapp':  return 'https://api.whatsapp.com/send?text=' + text + '%20' + url;
+        case 'telegram':  return 'https://t.me/share/url?url=' + url + '&text=' + text;
+        default: return null;
+      }
+    }
+
+    var shareSwitcher = document.getElementById('shareSwitcher');
+    var btnShare = document.getElementById('btnShare');
+    var shareMenu = document.getElementById('shareMenu');
+
+    function openShareMenu() {
+      shareMenu.hidden = false;
+      btnShare.setAttribute('aria-expanded', 'true');
+      document.addEventListener('click', onDocClickCloseShare);
+      document.addEventListener('keydown', onShareKeydown);
+    }
+    function closeShareMenu() {
+      shareMenu.hidden = true;
+      btnShare.setAttribute('aria-expanded', 'false');
+      document.removeEventListener('click', onDocClickCloseShare);
+      document.removeEventListener('keydown', onShareKeydown);
+    }
+    function onDocClickCloseShare(e) {
+      if (!shareSwitcher.contains(e.target)) closeShareMenu();
+    }
+    function onShareKeydown(e) {
+      if (e.key === 'Escape') { closeShareMenu(); btnShare.focus(); }
+    }
+    btnShare.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (shareMenu.hidden) openShareMenu(); else closeShareMenu();
+    });
+
+    shareMenu.querySelectorAll('.share-item').forEach(function (btn) {
+      btn.addEventListener('click', async function () {
+        var network = btn.getAttribute('data-network');
+        if (network === 'copy') {
+          try {
+            await navigator.clipboard.writeText(location.href);
+            showToast(TOAST.copied[currentLang]);
+          } catch (e) {
+            showToast(TOAST.copy_error[currentLang]);
+          }
+        } else {
+          var url = shareLink(network);
+          if (url) window.open(url, '_blank', 'noopener,noreferrer,width=600,height=520');
+        }
+        closeShareMenu();
+      });
+    });
+
+    /* ===================== Modal "Cómo funciona" ===================== */
+    var btnHowItWorks = document.getElementById('btnHowItWorks');
+    var howItWorksBackdrop = document.getElementById('howItWorksBackdrop');
+    var btnCloseHowItWorks = document.getElementById('btnCloseHowItWorks');
+
+    function openModal() {
+      howItWorksBackdrop.hidden = false;
+      btnCloseHowItWorks.focus();
+      document.addEventListener('keydown', onModalKeydown);
+    }
+    function closeModal() {
+      howItWorksBackdrop.hidden = true;
+      document.removeEventListener('keydown', onModalKeydown);
+      btnHowItWorks.focus();
+    }
+    function onModalKeydown(e) {
+      if (e.key === 'Escape') closeModal();
+    }
+    btnHowItWorks.addEventListener('click', openModal);
+    btnCloseHowItWorks.addEventListener('click', closeModal);
+    howItWorksBackdrop.addEventListener('click', function (e) {
+      if (e.target === howItWorksBackdrop) closeModal();
+    });
+
+    /* ===================== Selector de idioma ===================== */
+    var langSwitcher = document.getElementById('langSwitcher');
+    var btnLang = document.getElementById('btnLang');
+    var langMenu = document.getElementById('langMenu');
+    var langFlag = document.getElementById('langFlag');
+
+    function openLangMenu() {
+      langMenu.hidden = false;
+      btnLang.setAttribute('aria-expanded', 'true');
+      document.addEventListener('click', onDocClickCloseLang);
+      document.addEventListener('keydown', onLangKeydown);
+    }
+    function closeLangMenu() {
+      langMenu.hidden = true;
+      btnLang.setAttribute('aria-expanded', 'false');
+      document.removeEventListener('click', onDocClickCloseLang);
+      document.removeEventListener('keydown', onLangKeydown);
+    }
+    function onDocClickCloseLang(e) {
+      if (!langSwitcher.contains(e.target)) closeLangMenu();
+    }
+    function onLangKeydown(e) {
+      if (e.key === 'Escape') { closeLangMenu(); btnLang.focus(); }
+    }
+    btnLang.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (langMenu.hidden) openLangMenu(); else closeLangMenu();
+    });
+    langMenu.querySelectorAll('li').forEach(function (li) {
+      li.addEventListener('click', function () {
+        setLanguage(li.getAttribute('data-lang'));
+        closeLangMenu();
+      });
+    });
+
+    /* ===================== Aplicar idioma ===================== */
+    function setLanguage(lang) {
+      if (lang !== 'es' && lang !== 'en') lang = 'es';
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      document.title = TITLES[lang];
+
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var key = el.getAttribute('data-i18n');
+        if (I18N[key] && I18N[key][lang] != null) {
+          el.innerHTML = I18N[key][lang];
+        }
+      });
+
+      langFlag.textContent = lang === 'en' ? '🇺🇸' : '🇪🇸';
+      langMenu.querySelectorAll('li').forEach(function (li) {
+        li.setAttribute('aria-selected', li.getAttribute('data-lang') === lang ? 'true' : 'false');
+      });
+
+      btnLang.setAttribute('aria-label', ARIA.lang[lang]);
+      btnLang.title = ARIA.lang[lang];
+      btnShare.setAttribute('aria-label', ARIA.share[lang]);
+      btnShare.title = ARIA.share[lang];
+      btnPrint.setAttribute('aria-label', ARIA.print[lang]);
+      btnPrint.title = ARIA.print[lang];
+      btnDescargar.setAttribute('aria-label', ARIA.download[lang]);
+      btnDescargar.title = ARIA.download[lang];
+      btnCloseHowItWorks.setAttribute('aria-label', ARIA.modal_close[lang]);
+      btnCloseHowItWorks.title = ARIA.modal_close[lang];
+
+      applyThemeIcon();
+      try { localStorage.setItem('cv-lang', lang); } catch (e) {}
+    }
+
+    /* ===================== Imprimir / Descargar ===================== */
+    var btnPrint = document.getElementById('btnPrint');
+    var btnDescargar = document.getElementById('btnDescargar');
+    btnPrint.addEventListener('click', function () { window.print(); });
+    btnDescargar.addEventListener('click', function () { window.print(); });
+
+    /* ===================== Inicialización ===================== */
+    var storedLang = 'es';
+    try {
+      var sl = localStorage.getItem('cv-lang');
+      if (sl === 'es' || sl === 'en') storedLang = sl;
+    } catch (e) {}
+    setLanguage(storedLang);
   })();
 </script>
 
