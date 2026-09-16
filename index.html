@@ -437,6 +437,15 @@
     border:5px solid transparent;
     border-top-color:var(--azul-petroleo-dark);
   }
+  /* En pantalla solo se ve la etiqueta "Phone Number"; el número real
+     queda oculto y solo aparece en el tooltip o al imprimir/descargar. */
+  .phone-print-value{display:none;}
+
+  /* LinkedIn: en pantalla se ve "LinkedIn Profile"; la URL solo se
+     muestra al imprimir/descargar (no es clicable en papel, así que
+     conviene que se lea el enlace completo). */
+  .li-print-value{display:none;}
+
   .phone-reveal:hover .phone-tooltip,
   .phone-reveal:focus-visible .phone-tooltip{
     opacity:1;
@@ -792,6 +801,17 @@
     }
     a{color:inherit; text-decoration:none;}
     footer.credit{display:none;}
+
+    /* Al imprimir o descargar el PDF, mostrar el teléfono y el enlace de
+       LinkedIn completos: en papel no hay hover ni clic, así que la
+       ofuscación de pantalla no cumple ningún propósito y solo restaría
+       información útil para quien lo lea impreso. */
+    .phone-label, .phone-tooltip{display:none;}
+    .phone-print-value{display:inline;}
+    .phone-reveal{border-bottom:none; cursor:auto;}
+
+    .li-label{display:none;}
+    .li-print-value{display:inline;}
   }
 </style>
 </head>
@@ -890,7 +910,8 @@
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.97.36 1.92.68 2.83a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.25-1.25a2 2 0 0 1 2.11-.45c.91.32 1.86.55 2.83.68A2 2 0 0 1 22 16.92z"></path></svg>
               <a class="phone-reveal" href="tel:+593992767785" aria-label="Llamar al +593992767785">
-                Phone Number
+                <span class="phone-label">Phone Number</span>
+                <span class="phone-print-value">+593992767785</span>
                 <span class="phone-tooltip" role="tooltip">+593992767785</span>
               </a>
             </li>
@@ -900,7 +921,10 @@
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-              <span><a href="https://www.linkedin.com/in/edison-tarambis/" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a></span>
+              <span><a class="li-link" href="https://www.linkedin.com/in/edison-tarambis/" target="_blank" rel="noopener noreferrer">
+                <span class="li-label">LinkedIn Profile</span>
+                <span class="li-print-value">linkedin.com/in/edison-tarambis</span>
+              </a></span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 4-7 8-7s8 3 8 7"></path></svg>
@@ -1036,12 +1060,14 @@
           </div>
           <p class="exp-empresa">Banco Pichincha, Quito</p>
           <ul>
-            <li data-i18n="job1_b1"><strong>Diseñé y lideré desde cero un framework de automatización end-to-end</strong> con Playwright y TypeScript, reduciendo el tiempo de regresión manual en múltiples aplicaciones bancarias.</li>
-            <li data-i18n="job1_b2"><strong>Implementé pruebas de automatización móvil con Appium</strong> integradas al pipeline de CI/CD para apps de banca digital.</li>
-            <li data-i18n="job1_b3"><strong>Establecí pruebas de API y de rendimiento</strong>, incorporando seeding y mocks de datos para escenarios estables y repetibles.</li>
-            <li data-i18n="job1_b4"><strong>Impulsé prácticas de Clean Code y Shift-Left Testing</strong> junto a mentoría técnica a nuevos integrantes del equipo de calidad.</li>
+            <li data-i18n="job1_b1"><strong>Diseño e implemento estrategias de prueba integrales y reportes de métricas de calidad</strong>, alineando los objetivos de entrega bajo metodologías Ágiles (Scrum/Kanban) para asegurar la excelencia del software.</li>
+            <li data-i18n="job1_b2"><strong>Diseño, desarrollo y mantenimiento de frameworks de automatización robustos</strong> para Web, Mobile (iOS/Android) y APIs utilizando Playwright con TypeScript, Appium, Serenity BDD y Karate Framework, incrementando la cobertura de pruebas.</li>
+            <li data-i18n="job1_b3"><strong>Configuro, optimizo y mantengo pipelines de Integración Continua y Entrega Continua (CI/CD)</strong> para la ejecución automatizada de suites de pruebas, facilitando la detección temprana de defectos y proporcionando retroalimentación continua durante el ciclo de desarrollo.</li>
+            <li data-i18n="job1_b4"><strong>Planifico y ejecuto pruebas de rendimiento y escalabilidad utilizando k6 y Apache JMeter</strong>, garantizando la estabilidad del sistema bajo alta concurrencia en entornos de transacciones financieras críticas.</li>
+            <li data-i18n="job1_b5"><strong>Implemento tableros de reportes automatizados y sistemas de monitoreo de calidad</strong>, proporcionando visibilidad en tiempo real del estado de los despliegues a stakeholders y líderes técnicos.</li>
+            <li data-i18n="job1_b6"><strong>Gestiono entornos de QA y arquitectura de datos de prueba complejos</strong>, optimizando la extracción y recuperación de datos con Stratio e implementando simulación de servicios (service mocking) para el aislamiento y estabilidad de pruebas de componentes.</li>
           </ul>
-          <p class="exp-tools"><strong>Tools:</strong> Playwright, Appium, Serenity BDD, TypeScript, Java, Azure DevOps, Docker, Postman, K6, SonarCloud</p>
+          <p class="exp-tools"><strong>Tools:</strong> Playwright, Serenity BDD, Karate Framework, Appium, TypeScript, Java, k6, Apache JMeter, Stratio, CI/CD Pipelines, Jira, Scrum/Kanban.</p>
         </article>
 
         <article class="exp-item">
@@ -1051,12 +1077,14 @@
           </div>
           <p class="exp-empresa">DNTI, IESS, Quito</p>
           <ul>
-            <li data-i18n="job2_b1"><strong>Lideré la estrategia de pruebas</strong> de sistemas críticos de seguridad social, aplicando enfoques de Risk-Based Testing.</li>
-            <li data-i18n="job2_b2"><strong>Construí suites de automatización con Selenium WebDriver y Serenity BDD</strong> integradas con Cucumber para pruebas BDD/TDD.</li>
-            <li data-i18n="job2_b3"><strong>Automaticé pruebas de servicios con Karate DSL</strong>, mejorando la cobertura y trazabilidad de defectos.</li>
-            <li data-i18n="job2_b4"><strong>Coordiné equipos multidisciplinarios</strong> bajo metodología Agile/Scrum, gestionando incidencias en JIRA y TestRail.</li>
+            <li data-i18n="job2_b1"><strong>Analicé y validé historias de usuario, requisitos funcionales y criterios de aceptación</strong>, participando activamente en equipos multidisciplinarios bajo metodologías ágiles Scrum y Kanban para asegurar la correcta definición de los criterios de calidad antes de la implementación.</li>
+            <li data-i18n="job2_b2"><strong>Diseñé y documenté casos y suites de prueba detallados</strong>, definiendo escenarios funcionales, positivos, negativos y de validación, así como la preparación y gestión de datos de prueba en entornos de staging.</li>
+            <li data-i18n="job2_b3"><strong>Ejecuté pruebas de humo (Smoke Testing), regresión y validación funcional</strong> para verificar la estabilidad de las aplicaciones después de cada despliegue, identificando riesgos y defectos antes de su paso a producción.</li>
+            <li data-i18n="job2_b4"><strong>Evolucioné mis funciones hacia la automatización y optimización de procesos operativos</strong>, implementando robots de software mediante RPA con UiPath para acelerar tareas repetitivas y validaciones críticas.</li>
+            <li data-i18n="job2_b5"><strong>Ejecuté y analicé pruebas de carga y estrés utilizando Apache JMeter</strong> para evaluar la estabilidad del sistema y los tiempos de respuesta bajo alto tráfico de usuarios.</li>
+            <li data-i18n="job2_b6"><strong>Monitoreé la calidad del código y los pipelines de despliegue</strong> revisando reportes de análisis estático en SonarQube y realizando el seguimiento de los estados de las construcciones (builds) dentro de entornos CI/CD de Jenkins.</li>
           </ul>
-          <p class="exp-tools"><strong>Tools:</strong> Selenium WebDriver, Serenity BDD, Cucumber, Karate DSL, Java, SQL (Oracle), JIRA, TestRail</p>
+          <p class="exp-tools"><strong>Tools:</strong> UiPath (RPA), Apache JMeter, SonarQube, Jenkins CI/CD, Scrum, Kanban</p>
         </article>
 
         <article class="exp-item">
@@ -1066,17 +1094,19 @@
           </div>
           <p class="exp-empresa">SONDA S.A, Quito</p>
           <ul>
-            <li data-i18n="job3_b1"><strong>Ejecuté y documenté planes de pruebas funcionales</strong> para proyectos de integración de sistemas empresariales.</li>
-            <li data-i18n="job3_b2"><strong>Desarrollé scripts de automatización iniciales</strong> con Selenium WebDriver, sentando las bases de la disciplina QA en el equipo.</li>
-            <li data-i18n="job3_b3"><strong>Diseñé casos de prueba a partir de requerimientos</strong>, mejorando la detección temprana de defectos.</li>
+            <li data-i18n="job3_b1"><strong>Analicé casos de uso y requerimientos funcionales</strong> para diseñar, escribir y estructurar escenarios de prueba detallados utilizando MS Excel e IBM Rational Quality Manager (RQM).</li>
+            <li data-i18n="job3_b2"><strong>Ejecuté pruebas manuales funcionales, de regresión y de humo utilizando Jtrac</strong> para realizar el seguimiento de la ejecución de pruebas y validar nuevas funcionalidades.</li>
+            <li data-i18n="job3_b3"><strong>Ejecuté y optimicé consultas SQL utilizando Oracle SQL Developer y Explain Plan</strong> para realizar la validación de la base de datos (backend), analizar el rendimiento de las consultas y garantizar la integridad de los datos.</li>
+            <li data-i18n="job3_b4"><strong>Gestioné y versioné artefactos de prueba, documentación y scripts SQL utilizando IBM Rational ClearCase</strong> para mantener el control de las líneas base (baselines) a través de los diferentes entornos.</li>
+            <li data-i18n="job3_b5"><strong>Realicé pruebas básicas de APIs y Web Services utilizando SoapUI</strong> para verificar los payloads de las peticiones (requests) y respuestas (responses).</li>
           </ul>
-          <p class="exp-tools"><strong>Tools:</strong> Selenium WebDriver, SQL, PL/SQL, JIRA</p>
+          <p class="exp-tools"><strong>Tools:</strong> IBM Rational Quality Manager, PLSQL, IBM Rational ClearCase</p>
         </article>
 
         <article class="exp-item">
           <div class="exp-head">
             <h3 data-i18n="job4_title">Administrador de Servidores</h3>
-            <span class="fecha" data-i18n="job4_dates">2006 — Nov 2009</span>
+            <span class="fecha" data-i18n="job4_dates">2007 — Nov 2009</span>
           </div>
           <p class="exp-empresa">Compuseg Ltda., Quito</p>
           <ul>
@@ -1089,7 +1119,7 @@
         <article class="exp-item">
           <div class="exp-head">
             <h3 data-i18n="job5_title">Asistente de Sistemas</h3>
-            <span class="fecha" data-i18n="job5_dates">2006 — 2007</span>
+            <span class="fecha" data-i18n="job5_dates">2006 — Mar 2007</span>
           </div>
           <p class="exp-empresa">Repact Contact Center, Quito</p>
           <ul>
@@ -1103,25 +1133,28 @@
       <section class="main-section" aria-labelledby="cursos-h">
         <h2 class="section-title" id="cursos-h" data-i18n="h_cursos">Cursos y certificaciones</h2>
         <ul class="courses-list">
-          <li><span class="course-name"><span data-i18n="crs1">Automatización de pruebas con Playwright y TypeScript</span> <span class="course-horas">(40h)</span></span><span class="course-year">2026</span></li>
-          <li><span class="course-name"><span data-i18n="crs2">Fundamentos de IA aplicada a QA y Testing Inteligente</span> <span class="course-horas">(24h)</span></span><span class="course-year">2025</span></li>
-          <li><span class="course-name"><span data-i18n="crs3">Serenity BDD avanzado con Screenplay Pattern</span> <span class="course-horas">(30h)</span></span><span class="course-year">2025</span></li>
-          <li><span class="course-name"><span data-i18n="crs4">Pruebas de rendimiento con K6</span> <span class="course-horas">(20h)</span></span><span class="course-year">2024</span></li>
-          <li><span class="course-name"><span data-i18n="crs5">Automatización móvil con Appium</span> <span class="course-horas">(32h)</span></span><span class="course-year">2024</span></li>
-          <li><span class="course-name"><span data-i18n="crs6">CI/CD con Azure DevOps Pipelines</span> <span class="course-horas">(24h)</span></span><span class="course-year">2024</span></li>
-          <li><span class="course-name"><span data-i18n="crs7">Karate DSL para pruebas de API</span> <span class="course-horas">(16h)</span></span><span class="course-year">2023</span></li>
-          <li><span class="course-name"><span data-i18n="crs8">Docker para entornos de pruebas</span> <span class="course-horas">(18h)</span></span><span class="course-year">2023</span></li>
-          <li><span class="course-name"><span data-i18n="crs9">Clean Code aplicado a frameworks de automatización</span> <span class="course-horas">(20h)</span></span><span class="course-year">2023</span></li>
-          <li><span class="course-name"><span data-i18n="crs10">SonarCloud: análisis de calidad de código</span> <span class="course-horas">(12h)</span></span><span class="course-year">2022</span></li>
-          <li><span class="course-name"><span data-i18n="crs11">TypeScript avanzado para testers</span> <span class="course-horas">(28h)</span></span><span class="course-year">2022</span></li>
-          <li><span class="course-name"><span data-i18n="crs12">AWS Cloud Practitioner Essentials</span> <span class="course-horas">(24h)</span></span><span class="course-year">2022</span></li>
-          <li><span class="course-name"><span data-i18n="crs13">Cucumber y BDD para equipos ágiles</span> <span class="course-horas">(16h)</span></span><span class="course-year">2021</span></li>
-          <li><span class="course-name"><span data-i18n="crs14">Scrum Master: fundamentos de Agile/Scrum</span> <span class="course-horas">(20h)</span></span><span class="course-year">2021</span></li>
-          <li><span class="course-name"><span data-i18n="crs15">Selenium WebDriver con Java</span> <span class="course-horas">(40h)</span></span><span class="course-year">2020</span></li>
-          <li><span class="course-name"><span data-i18n="crs16">Postman: automatización de pruebas de API</span> <span class="course-horas">(14h)</span></span><span class="course-year">2020</span></li>
-          <li><span class="course-name"><span data-i18n="crs17">PL/SQL avanzado para bases de datos Oracle</span> <span class="course-horas">(30h)</span></span><span class="course-year">2020</span></li>
-          <li><span class="course-name"><span data-i18n="crs18">Risk-Based Testing y estrategias de priorización</span> <span class="course-horas">(16h)</span></span><span class="course-year">2019</span></li>
-          <li><span class="course-name"><span data-i18n="crs19">Fundamentos de Git y GitHub para equipos de desarrollo</span> <span class="course-horas">(12h)</span></span><span class="course-year">2019</span></li>
+          <li><span class="course-name"><span data-i18n="crs1">Stratio Generative AI Data Governance</span> <span class="course-horas">(12h)</span></span><span class="course-year">2026</span></li>
+          <li><span class="course-name"><span data-i18n="crs2">Stratio Generative AI Data Fabric Basics</span> <span class="course-horas">(8h)</span></span><span class="course-year">2026</span></li>
+          <li><span class="course-name"><span data-i18n="crs3">Fundamentos de IA aplicada a QA y Testing Inteligente</span> <span class="course-horas">(20h)</span></span><span class="course-year">2026</span></li>
+          <li><span class="course-name"><span data-i18n="crs4">Serenity BDD avanzado con Screenplay Pattern</span> <span class="course-horas">(22h)</span></span><span class="course-year">2026</span></li>
+          <li><span class="course-name"><span data-i18n="crs5">Karate DSL: API Automation and Performance from Zero to Hero</span> <span class="course-horas">(10h)</span></span><span class="course-year">2025</span></li>
+          <li><span class="course-name"><span data-i18n="crs6">Automatización de Pruebas Serenity</span> <span class="course-horas">(15h)</span></span><span class="course-year">2025</span></li>
+          <li><span class="course-name"><span data-i18n="crs7">K6: Pruebas de Rendimiento y Carga para Principiantes</span> <span class="course-horas">(8h)</span></span><span class="course-year">2025</span></li>
+          <li><span class="course-name"><span data-i18n="crs8">ISTQB Agile Tester Certified Tester (CTFL-AT)</span> <span class="course-horas">(8h)</span></span><span class="course-year">2025</span></li>
+          <li><span class="course-name"><span data-i18n="crs9">ISTQB Certified Tester Foundation Level (CTFL 4.0)</span> <span class="course-horas">(6h)</span></span><span class="course-year">2025</span></li>
+          <li><span class="course-name"><span data-i18n="crs10">Dynatrace Fundamentals</span> <span class="course-horas">(4h)</span></span><span class="course-year">2025</span></li>
+          <li><span class="course-name"><span data-i18n="crs11">Site Reliability Engineering (SRE): The Big Picture</span> <span class="course-horas">(5h)</span></span><span class="course-year">2025</span></li>
+          <li><span class="course-name"><span data-i18n="crs12">Developing Docker Apps: Core Principles</span> <span class="course-horas">(4h)</span></span><span class="course-year">2025</span></li>
+          <li><span class="course-name"><span data-i18n="crs13">DevOps Foundations: Continuous Integration and Continuous Delivery</span> <span class="course-horas">(4h)</span></span><span class="course-year">2025</span></li>
+          <li><span class="course-name"><span data-i18n="crs14">Aceleración del desarrollo de aplicaciones mediante GitHub Copilot</span> <span class="course-horas">(10h)</span></span><span class="course-year">2025</span></li>
+          <li><span class="course-name"><span data-i18n="crs15">Curso Completo de Microsoft Azure Fundamentals (AZ-900)</span> <span class="course-horas">(9h)</span></span><span class="course-year">2024</span></li>
+          <li><span class="course-name"><span data-i18n="crs16">Liderazgo</span> <span class="course-horas">(24h)</span></span><span class="course-year">2023</span></li>
+          <li><span class="course-name"><span data-i18n="crs17">Resolución de Problemas a través del Pensamiento Crítico</span> <span class="course-horas">(24h)</span></span><span class="course-year">2023</span></li>
+          <li><span class="course-name"><span data-i18n="crs18">Manejo Efectivo del Tiempo</span> <span class="course-horas">(24h)</span></span><span class="course-year">2023</span></li>
+          <li><span class="course-name"><span data-i18n="crs19">Automatización de pruebas con Playwright y TypeScript</span> <span class="course-horas">(20h)</span></span><span class="course-year">2023</span></li>
+          <li><span class="course-name"><span data-i18n="crs20">AWS: Arquitecto Soluciones Certificado</span> <span class="course-horas">(20h)</span></span><span class="course-year">2022</span></li>
+          <li><span class="course-name"><span data-i18n="crs21">Scrum Fundamentals Certified</span> <span class="course-horas">(12h)</span></span><span class="course-year">2019</span></li>
+          <li><span class="course-name"><span data-i18n="crs22">Official Scrum Master Certification</span> <span class="course-horas">(20h)</span></span><span class="course-year">2019</span></li>
         </ul>
       </section>
 
@@ -1220,54 +1253,63 @@
 
       job1_title:{es:"Ingeniero de Automatización", en:"Automation Engineer"},
       job1_dates:{es:"Dic 2021 — Presente", en:"Dec 2021 — Present"},
-      job1_b1:{es:"<strong>Diseñé y lideré desde cero un framework de automatización end-to-end</strong> con Playwright y TypeScript, reduciendo el tiempo de regresión manual en múltiples aplicaciones bancarias.", en:"<strong>Designed and led an end-to-end automation framework from scratch</strong> using Playwright and TypeScript, reducing manual regression time across multiple banking applications."},
-      job1_b2:{es:"<strong>Implementé pruebas de automatización móvil con Appium</strong> integradas al pipeline de CI/CD para apps de banca digital.", en:"<strong>Implemented mobile automation testing with Appium</strong> integrated into the CI/CD pipeline for digital banking apps."},
-      job1_b3:{es:"<strong>Establecí pruebas de API y de rendimiento</strong>, incorporando seeding y mocks de datos para escenarios estables y repetibles.", en:"<strong>Established API and performance testing</strong>, incorporating data seeding and mocks for stable, repeatable scenarios."},
-      job1_b4:{es:"<strong>Impulsé prácticas de Clean Code y Shift-Left Testing</strong> junto a mentoría técnica a nuevos integrantes del equipo de calidad.", en:"<strong>Drove Clean Code and Shift-Left Testing practices</strong>, alongside technical mentoring for new QA team members."},
+      job1_b1:{es:"<strong>Diseño e implemento estrategias de prueba integrales y reportes de métricas de calidad</strong>, alineando los objetivos de entrega bajo metodologías Ágiles (Scrum/Kanban) para asegurar la excelencia del software.", en:"<strong>Design and implement comprehensive test strategies and quality metrics reporting</strong>, aligning delivery goals under Agile methodologies (Scrum/Kanban) to ensure software excellence."},
+      job1_b2:{es:"<strong>Diseño, desarrollo y mantenimiento de frameworks de automatización robustos</strong> para Web, Mobile (iOS/Android) y APIs utilizando Playwright con TypeScript, Appium, Serenity BDD y Karate Framework, incrementando la cobertura de pruebas.", en:"<strong>Design, develop, and maintain robust automation frameworks</strong> for Web, Mobile (iOS/Android), and APIs using Playwright with TypeScript, Appium, Serenity BDD, and Karate Framework, increasing test coverage."},
+      job1_b3:{es:"<strong>Configuro, optimizo y mantengo pipelines de Integración Continua y Entrega Continua (CI/CD)</strong> para la ejecución automatizada de suites de pruebas, facilitando la detección temprana de defectos y proporcionando retroalimentación continua durante el ciclo de desarrollo.", en:"<strong>Configure, optimize, and maintain Continuous Integration and Continuous Delivery (CI/CD) pipelines</strong> for automated test suite execution, enabling early defect detection and continuous feedback throughout the development cycle."},
+      job1_b4:{es:"<strong>Planifico y ejecuto pruebas de rendimiento y escalabilidad utilizando k6 y Apache JMeter</strong>, garantizando la estabilidad del sistema bajo alta concurrencia en entornos de transacciones financieras críticas.", en:"<strong>Plan and execute performance and scalability testing using k6 and Apache JMeter</strong>, ensuring system stability under high concurrency in critical financial transaction environments."},
+      job1_b5:{es:"<strong>Implemento tableros de reportes automatizados y sistemas de monitoreo de calidad</strong>, proporcionando visibilidad en tiempo real del estado de los despliegues a stakeholders y líderes técnicos.", en:"<strong>Implement automated reporting dashboards and quality monitoring systems</strong>, providing real-time visibility into deployment status for stakeholders and technical leads."},
+      job1_b6:{es:"<strong>Gestiono entornos de QA y arquitectura de datos de prueba complejos</strong>, optimizando la extracción y recuperación de datos con Stratio e implementando simulación de servicios (service mocking) para el aislamiento y estabilidad de pruebas de componentes.", en:"<strong>Manage QA environments and complex test data architecture</strong>, optimizing data extraction and retrieval with Stratio and implementing service mocking for component test isolation and stability."},
 
       job2_title:{es:"Ingeniero de Calidad", en:"Quality Engineer"},
       job2_dates:{es:"Sep 2013 — Nov 2021", en:"Sep 2013 — Nov 2021"},
-      job2_b1:{es:"<strong>Lideré la estrategia de pruebas</strong> de sistemas críticos de seguridad social, aplicando enfoques de Risk-Based Testing.", en:"<strong>Led the testing strategy</strong> for critical social security systems, applying Risk-Based Testing approaches."},
-      job2_b2:{es:"<strong>Construí suites de automatización con Selenium WebDriver y Serenity BDD</strong> integradas con Cucumber para pruebas BDD/TDD.", en:"<strong>Built automation suites with Selenium WebDriver and Serenity BDD</strong> integrated with Cucumber for BDD/TDD testing."},
-      job2_b3:{es:"<strong>Automaticé pruebas de servicios con Karate DSL</strong>, mejorando la cobertura y trazabilidad de defectos.", en:"<strong>Automated service testing with Karate DSL</strong>, improving coverage and defect traceability."},
-      job2_b4:{es:"<strong>Coordiné equipos multidisciplinarios</strong> bajo metodología Agile/Scrum, gestionando incidencias en JIRA y TestRail.", en:"<strong>Coordinated cross-functional teams</strong> under Agile/Scrum methodology, managing issues in JIRA and TestRail."},
+      job2_b1:{es:"<strong>Analicé y validé historias de usuario, requisitos funcionales y criterios de aceptación</strong>, participando activamente en equipos multidisciplinarios bajo metodologías ágiles Scrum y Kanban para asegurar la correcta definición de los criterios de calidad antes de la implementación.", en:"<strong>Analyzed and validated user stories, functional requirements, and acceptance criteria</strong>, actively participating in cross-functional teams under Agile methodologies (Scrum and Kanban) to ensure quality criteria were properly defined before implementation."},
+      job2_b2:{es:"<strong>Diseñé y documenté casos y suites de prueba detallados</strong>, definiendo escenarios funcionales, positivos, negativos y de validación, así como la preparación y gestión de datos de prueba en entornos de staging.", en:"<strong>Designed and documented detailed test cases and suites</strong>, defining functional, positive, negative, and validation scenarios, as well as preparing and managing test data in staging environments."},
+      job2_b3:{es:"<strong>Ejecuté pruebas de humo (Smoke Testing), regresión y validación funcional</strong> para verificar la estabilidad de las aplicaciones después de cada despliegue, identificando riesgos y defectos antes de su paso a producción.", en:"<strong>Executed smoke testing, regression, and functional validation</strong> to verify application stability after each deployment, identifying risks and defects before they reached production."},
+      job2_b4:{es:"<strong>Evolucioné mis funciones hacia la automatización y optimización de procesos operativos</strong>, implementando robots de software mediante RPA con UiPath para acelerar tareas repetitivas y validaciones críticas.", en:"<strong>Evolved my role toward automation and operational process optimization</strong>, implementing software robots through RPA with UiPath to accelerate repetitive tasks and critical validations."},
+      job2_b5:{es:"<strong>Ejecuté y analicé pruebas de carga y estrés utilizando Apache JMeter</strong> para evaluar la estabilidad del sistema y los tiempos de respuesta bajo alto tráfico de usuarios.", en:"<strong>Executed and analyzed load and stress testing using Apache JMeter</strong> to evaluate system stability and response times under high user traffic."},
+      job2_b6:{es:"<strong>Monitoreé la calidad del código y los pipelines de despliegue</strong> revisando reportes de análisis estático en SonarQube y realizando el seguimiento de los estados de las construcciones (builds) dentro de entornos CI/CD de Jenkins.", en:"<strong>Monitored code quality and deployment pipelines</strong> by reviewing static analysis reports in SonarQube and tracking build statuses within Jenkins CI/CD environments."},
 
       job3_title:{es:"Analista de Calidad", en:"Quality Analyst"},
       job3_dates:{es:"Ene 2010 — Sep 2013", en:"Jan 2010 — Sep 2013"},
-      job3_b1:{es:"<strong>Ejecuté y documenté planes de pruebas funcionales</strong> para proyectos de integración de sistemas empresariales.", en:"<strong>Executed and documented functional test plans</strong> for enterprise systems integration projects."},
-      job3_b2:{es:"<strong>Desarrollé scripts de automatización iniciales</strong> con Selenium WebDriver, sentando las bases de la disciplina QA en el equipo.", en:"<strong>Developed initial automation scripts</strong> with Selenium WebDriver, laying the foundations of the QA discipline within the team."},
-      job3_b3:{es:"<strong>Diseñé casos de prueba a partir de requerimientos</strong>, mejorando la detección temprana de defectos.", en:"<strong>Designed test cases from requirements</strong>, improving early defect detection."},
+      job3_b1:{es:"<strong>Analicé casos de uso y requerimientos funcionales</strong> para diseñar, escribir y estructurar escenarios de prueba detallados utilizando MS Excel e IBM Rational Quality Manager (RQM).", en:"<strong>Analyzed use cases and functional requirements</strong> to design, write, and structure detailed test scenarios using MS Excel and IBM Rational Quality Manager (RQM)."},
+      job3_b2:{es:"<strong>Ejecuté pruebas manuales funcionales, de regresión y de humo utilizando Jtrac</strong> para realizar el seguimiento de la ejecución de pruebas y validar nuevas funcionalidades.", en:"<strong>Executed manual functional, regression, and smoke testing using Jtrac</strong> to track test execution and validate new functionality."},
+      job3_b3:{es:"<strong>Ejecuté y optimicé consultas SQL utilizando Oracle SQL Developer y Explain Plan</strong> para realizar la validación de la base de datos (backend), analizar el rendimiento de las consultas y garantizar la integridad de los datos.", en:"<strong>Executed and optimized SQL queries using Oracle SQL Developer and Explain Plan</strong> to perform backend database validation, analyze query performance, and ensure data integrity."},
+      job3_b4:{es:"<strong>Gestioné y versioné artefactos de prueba, documentación y scripts SQL utilizando IBM Rational ClearCase</strong> para mantener el control de las líneas base (baselines) a través de los diferentes entornos.", en:"<strong>Managed and versioned test artifacts, documentation, and SQL scripts using IBM Rational ClearCase</strong> to maintain baseline control across different environments."},
+      job3_b5:{es:"<strong>Realicé pruebas básicas de APIs y Web Services utilizando SoapUI</strong> para verificar los payloads de las peticiones (requests) y respuestas (responses).", en:"<strong>Performed basic API and Web Services testing using SoapUI</strong> to verify request and response payloads."},
 
       job4_title:{es:"Administrador de Servidores", en:"Server Administrator"},
-      job4_dates:{es:"2006 — Nov 2009", en:"2006 — Nov 2009"},
+      job4_dates:{es:"2007 — Nov 2009", en:"2007 — Nov 2009"},
       job4_b1:{es:"<strong>Administré infraestructura de servidores</strong> garantizando disponibilidad y continuidad operativa.", en:"<strong>Administered server infrastructure</strong>, ensuring availability and operational continuity."},
       job4_b2:{es:"<strong>Implementé procesos de monitoreo y respaldo</strong>, reduciendo tiempos de indisponibilidad.", en:"<strong>Implemented monitoring and backup processes</strong>, reducing downtime."},
 
       job5_title:{es:"Asistente de Sistemas", en:"Systems Assistant"},
-      job5_dates:{es:"2006 — 2007", en:"2006 — 2007"},
+      job5_dates:{es:"2006 — Mar 2007", en:"2006 — Mar 2007"},
       job5_b1:{es:"<strong>Brindé soporte técnico de primer nivel</strong> a la plataforma tecnológica del centro de contacto.", en:"<strong>Provided first-level technical support</strong> for the contact center's technology platform."},
       job5_b2:{es:"<strong>Colaboré en el mantenimiento de sistemas y bases de datos</strong> del área operativa.", en:"<strong>Collaborated on systems and database maintenance</strong> for the operations area."},
 
       h_cursos:{es:"Cursos y certificaciones", en:"Courses &amp; Certifications"},
-      crs1:{es:"Automatización de pruebas con Playwright y TypeScript", en:"Test Automation with Playwright and TypeScript"},
-      crs2:{es:"Fundamentos de IA aplicada a QA y Testing Inteligente", en:"Fundamentals of AI Applied to QA and Intelligent Testing"},
-      crs3:{es:"Serenity BDD avanzado con Screenplay Pattern", en:"Advanced Serenity BDD with the Screenplay Pattern"},
-      crs4:{es:"Pruebas de rendimiento con K6", en:"Performance Testing with K6"},
-      crs5:{es:"Automatización móvil con Appium", en:"Mobile Automation with Appium"},
-      crs6:{es:"CI/CD con Azure DevOps Pipelines", en:"CI/CD with Azure DevOps Pipelines"},
-      crs7:{es:"Karate DSL para pruebas de API", en:"Karate DSL for API Testing"},
-      crs8:{es:"Docker para entornos de pruebas", en:"Docker for Test Environments"},
-      crs9:{es:"Clean Code aplicado a frameworks de automatización", en:"Clean Code Applied to Automation Frameworks"},
-      crs10:{es:"SonarCloud: análisis de calidad de código", en:"SonarCloud: Code Quality Analysis"},
-      crs11:{es:"TypeScript avanzado para testers", en:"Advanced TypeScript for Testers"},
-      crs12:{es:"AWS Cloud Practitioner Essentials", en:"AWS Cloud Practitioner Essentials"},
-      crs13:{es:"Cucumber y BDD para equipos ágiles", en:"Cucumber and BDD for Agile Teams"},
-      crs14:{es:"Scrum Master: fundamentos de Agile/Scrum", en:"Scrum Master: Agile/Scrum Fundamentals"},
-      crs15:{es:"Selenium WebDriver con Java", en:"Selenium WebDriver with Java"},
-      crs16:{es:"Postman: automatización de pruebas de API", en:"Postman: API Test Automation"},
-      crs17:{es:"PL/SQL avanzado para bases de datos Oracle", en:"Advanced PL/SQL for Oracle Databases"},
-      crs18:{es:"Risk-Based Testing y estrategias de priorización", en:"Risk-Based Testing and Prioritization Strategies"},
-      crs19:{es:"Fundamentos de Git y GitHub para equipos de desarrollo", en:"Git and GitHub Fundamentals for Development Teams"},
+      crs1:{es:"Stratio Generative AI Data Governance", en:"Stratio Generative AI Data Governance"},
+      crs2:{es:"Stratio Generative AI Data Fabric Basics", en:"Stratio Generative AI Data Fabric Basics"},
+      crs3:{es:"Fundamentos de IA aplicada a QA y Testing Inteligente", en:"Fundamentals of AI Applied to QA and Intelligent Testing"},
+      crs4:{es:"Serenity BDD avanzado con Screenplay Pattern", en:"Advanced Serenity BDD with the Screenplay Pattern"},
+      crs5:{es:"Karate DSL: API Automation and Performance from Zero to Hero", en:"Karate DSL: API Automation and Performance from Zero to Hero"},
+      crs6:{es:"Automatización de Pruebas Serenity", en:"Serenity Test Automation"},
+      crs7:{es:"K6: Pruebas de Rendimiento y Carga para Principiantes", en:"K6: Performance and Load Testing for Beginners"},
+      crs8:{es:"ISTQB Agile Tester Certified Tester (CTFL-AT)", en:"ISTQB Agile Tester Certified Tester (CTFL-AT)"},
+      crs9:{es:"ISTQB Certified Tester Foundation Level (CTFL 4.0)", en:"ISTQB Certified Tester Foundation Level (CTFL 4.0)"},
+      crs10:{es:"Dynatrace Fundamentals", en:"Dynatrace Fundamentals"},
+      crs11:{es:"Site Reliability Engineering (SRE): The Big Picture", en:"Site Reliability Engineering (SRE): The Big Picture"},
+      crs12:{es:"Developing Docker Apps: Core Principles", en:"Developing Docker Apps: Core Principles"},
+      crs13:{es:"DevOps Foundations: Continuous Integration and Continuous Delivery", en:"DevOps Foundations: Continuous Integration and Continuous Delivery"},
+      crs14:{es:"Aceleración del desarrollo de aplicaciones mediante GitHub Copilot", en:"Accelerating Application Development with GitHub Copilot"},
+      crs15:{es:"Curso Completo de Microsoft Azure Fundamentals (AZ-900)", en:"Complete Microsoft Azure Fundamentals Course (AZ-900)"},
+      crs16:{es:"Liderazgo", en:"Leadership"},
+      crs17:{es:"Resolución de Problemas a través del Pensamiento Crítico", en:"Problem Solving through Critical Thinking"},
+      crs18:{es:"Manejo Efectivo del Tiempo", en:"Effective Time Management"},
+      crs19:{es:"Automatización de pruebas con Playwright y TypeScript", en:"Test Automation with Playwright and TypeScript"},
+      crs20:{es:"AWS: Arquitecto Soluciones Certificado", en:"AWS Certified Solutions Architect"},
+      crs21:{es:"Scrum Fundamentals Certified", en:"Scrum Fundamentals Certified"},
+      crs22:{es:"Official Scrum Master Certification", en:"Official Scrum Master Certification"},
 
       h_referencias:{es:"Referencias laborales", en:"Professional References"},
       ref1_role:{es:"Líder de Automatización — Banco Pichincha", en:"Automation Lead — Banco Pichincha"},
