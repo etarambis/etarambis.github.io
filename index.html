@@ -324,6 +324,8 @@
   }
 
   .avatar{
+    position:relative;
+    overflow:hidden;
     width:110px;
     height:110px;
     border-radius:50%;
@@ -338,6 +340,18 @@
     border:4px solid rgba(255,255,255,.85);
     box-shadow:0 4px 12px rgba(0,0,0,.25);
     letter-spacing:1px;
+  }
+
+  /* La foto real solo se usa al imprimir/descargar el PDF; en pantalla
+     se ven las iniciales "ET" (privacidad + carga más liviana del sitio). */
+  .avatar-photo{
+    display:none;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    /* La persona no está centrada horizontalmente en la foto original;
+       este desplazamiento recorta el óvalo del círculo alrededor de la cara. */
+    object-position:63% center;
   }
 
   .sidebar-header h1{
@@ -785,9 +799,33 @@
     }
     .sidebar-wave{display:none;}
 
-    .exp-item, .ref-item, .edu-item, .skill-group, .lang-item{
+    .ref-item, .edu-item, .skill-group, .lang-item{
       break-inside:avoid;
       page-break-inside:avoid;
+    }
+    /* Las experiencias ahora son largas (5-6 viñetas cada una). Si se exige
+       que TODO el bloque quede junto (break-inside:avoid), cuando no cabe
+       completo en lo que resta de la página, el bloque entero salta a la
+       siguiente y deja un hueco enorme en blanco (esto pasaba también entre
+       Formación y Experiencia Profesional). En vez de eso, dejamos que la
+       lista de viñetas fluya entre páginas, pero sin cortar una viñeta a la
+       mitad ni dejar el título/empresa solos al pie de una página. */
+    .exp-item{
+      break-inside:auto;
+      page-break-inside:auto;
+    }
+    .exp-item .exp-head,
+    .exp-item .exp-empresa{
+      break-after:avoid-page;
+      page-break-after:avoid;
+    }
+    .exp-item li{
+      break-inside:avoid;
+      page-break-inside:avoid;
+    }
+    .exp-item .exp-tools{
+      break-before:avoid-page;
+      page-break-before:avoid;
     }
     /* Solo evita que un título de sección quede solo al pie de una página;
        ya no fuerza a que TODA la sección (p.ej. los 19 cursos) empiece en
@@ -812,6 +850,11 @@
 
     .li-label{display:none;}
     .li-print-value{display:inline;}
+
+    /* Igual que el teléfono/LinkedIn: la foto real solo aparece en el PDF
+       impreso/descargado, nunca en el sitio web. */
+    .avatar-initials{display:none;}
+    .avatar-photo{display:block;}
   }
 </style>
 </head>
@@ -893,7 +936,10 @@
     <!-- ============ SIDEBAR ============ -->
     <aside class="sidebar">
       <div class="sidebar-header">
-        <div class="avatar" aria-hidden="true">ET</div>
+        <div class="avatar" aria-hidden="true">
+          <span class="avatar-initials">ET</span>
+          <img class="avatar-photo" src="fotoPerfil.jpg" alt="">
+        </div>
         <h1>Edison Giovanny<br>Tarambis Enriquez</h1>
         <p class="rol" data-i18n="brand_role">Ingeniero de Automatización<br>de Pruebas (QA / SDET)</p>
       </div>
@@ -984,7 +1030,7 @@
           </div>
           <div class="lang-item">
             <div class="lang-top"><span data-i18n="lang_en_label">Inglés</span><span class="nivel" data-i18n="lvl_prof">Profesional - técnico</span></div>
-            <div class="lang-bar"><span style="width:80%"></span></div>
+            <div class="lang-bar"><span style="width:40%"></span></div>
           </div>
         </section>
 
