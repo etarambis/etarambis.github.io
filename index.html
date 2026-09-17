@@ -749,6 +749,15 @@
 
   /* ===== Impresión ===== */
   @media print{
+    /* Muchos navegadores traen desmarcada la opción "Gráficos de fondo" del
+       diálogo de impresión, y sin ella se omiten todos los background-color
+       (la barra de nivel de idioma, las etiquetas de habilidades, el
+       encabezado azul, etc.). Esto fuerza a imprimirlos siempre. */
+    *{
+      -webkit-print-color-adjust:exact !important;
+      print-color-adjust:exact !important;
+      color-adjust:exact !important;
+    }
     :root, [data-theme="dark"]{
       --texto:#333333;
       --texto-muted:#5a5a5a;
@@ -939,6 +948,7 @@
         <ul class="dropdown-menu lang-menu" id="langMenu" role="listbox" hidden>
           <li role="option" data-lang="es" aria-selected="true"><span aria-hidden="true">🇪🇸</span> Español</li>
           <li role="option" data-lang="en" aria-selected="false"><span aria-hidden="true">🇺🇸</span> English</li>
+          <li role="option" data-lang="pt" aria-selected="false"><span aria-hidden="true">🇧🇷</span> Português</li>
         </ul>
       </div>
 
@@ -1277,139 +1287,141 @@
 
     /* ===================== Diccionario de traducción ===================== */
     var I18N = {
-      howworks_label:{es:"Cómo funciona este CV", en:"How this CV works"},
-      howworks_title:{es:"Cómo funciona este CV online", en:"How this online CV works"},
-      howworks_theme:{es:"<strong>🌙 / ☀️ Tema:</strong> cambia entre modo claro y oscuro.", en:"<strong>🌙 / ☀️ Theme:</strong> switches between light and dark mode."},
-      howworks_share:{es:"<strong>🔗 Compartir:</strong> abre un menú para compartirlo en LinkedIn, X, Facebook, WhatsApp, Telegram o copiar el enlace.", en:"<strong>🔗 Share:</strong> opens a menu to share it on LinkedIn, X, Facebook, WhatsApp, Telegram, or copy the link."},
-      share_copy_label:{es:"Copiar enlace", en:"Copy link"},
-      howworks_lang:{es:"<strong>🇪🇸 / 🇺🇸 Idioma:</strong> traduce todo el contenido entre español e inglés.", en:"<strong>🇪🇸 / 🇺🇸 Language:</strong> translates all content between Spanish and English."},
-      howworks_print:{es:"<strong>🖨️ Imprimir:</strong> abre el diálogo de impresión del navegador.", en:"<strong>🖨️ Print:</strong> opens your browser's print dialog."},
-      howworks_download:{es:"<strong>⬇️ Descargar:</strong> abre el mismo diálogo para guardar el CV como PDF.", en:"<strong>⬇️ Download:</strong> opens the same dialog to save the CV as a PDF."},
+      howworks_label:{es:"Cómo funciona este CV", en:"How this CV works", pt:"Como funciona este currículo"},
+      howworks_title:{es:"Cómo funciona este CV online", en:"How this online CV works", pt:"Como funciona este currículo online"},
+      howworks_theme:{es:"<strong>🌙 / ☀️ Tema:</strong> cambia entre modo claro y oscuro.", en:"<strong>🌙 / ☀️ Theme:</strong> switches between light and dark mode.", pt:"<strong>🌙 / ☀️ Tema:</strong> alterna entre modo claro e escuro."},
+      howworks_share:{es:"<strong>🔗 Compartir:</strong> abre un menú para compartirlo en LinkedIn, X, Facebook, WhatsApp, Telegram o copiar el enlace.", en:"<strong>🔗 Share:</strong> opens a menu to share it on LinkedIn, X, Facebook, WhatsApp, Telegram, or copy the link.", pt:"<strong>🔗 Compartilhar:</strong> abre um menu para compartilhar no LinkedIn, X, Facebook, WhatsApp, Telegram ou copiar o link."},
+      share_copy_label:{es:"Copiar enlace", en:"Copy link", pt:"Copiar link"},
+      howworks_lang:{es:"<strong>🇪🇸 / 🇺🇸 / 🇧🇷 Idioma:</strong> traduce todo el contenido entre español, inglés y portugués.", en:"<strong>🇪🇸 / 🇺🇸 / 🇧🇷 Language:</strong> translates all content between Spanish, English, and Portuguese.", pt:"<strong>🇪🇸 / 🇺🇸 / 🇧🇷 Idioma:</strong> traduz todo o conteúdo entre espanhol, inglês e português."},
+      howworks_print:{es:"<strong>🖨️ Imprimir:</strong> abre el diálogo de impresión del navegador.", en:"<strong>🖨️ Print:</strong> opens your browser's print dialog.", pt:"<strong>🖨️ Imprimir:</strong> abre a caixa de diálogo de impressão do navegador."},
+      howworks_download:{es:"<strong>⬇️ Descargar:</strong> abre el mismo diálogo para guardar el CV como PDF.", en:"<strong>⬇️ Download:</strong> opens the same dialog to save the CV as a PDF.", pt:"<strong>⬇️ Baixar:</strong> abre a mesma caixa de diálogo para salvar o currículo como PDF."},
 
-      brand_role:{es:"Ingeniero de Automatización<br>de Pruebas (QA / SDET)", en:"Test Automation<br>Engineer (QA / SDET)"},
-      h_datos:{es:"Datos personales", en:"Personal Details"},
-      h_skills:{es:"Habilidades técnicas", en:"Technical Skills"},
-      h_idiomas:{es:"Idiomas", en:"Languages"},
-      h_aficiones:{es:"Aficiones e intereses", en:"Hobbies &amp; Interests"},
-      nationality:{es:"Ecuatoriano", en:"Ecuadorian"},
+      brand_role:{es:"Ingeniero de Automatización<br>de Pruebas (QA / SDET)", en:"Test Automation<br>Engineer (QA / SDET)", pt:"Engenheiro de Automação<br>de Testes (QA / SDET)"},
+      h_datos:{es:"Datos personales", en:"Personal Details", pt:"Dados pessoais"},
+      h_skills:{es:"Habilidades técnicas", en:"Technical Skills", pt:"Habilidades técnicas"},
+      h_idiomas:{es:"Idiomas", en:"Languages", pt:"Idiomas"},
+      h_aficiones:{es:"Aficiones e intereses", en:"Hobbies &amp; Interests", pt:"Hobbies e interesses"},
+      nationality:{es:"Ecuatoriano", en:"Ecuadorian", pt:"Equatoriano"},
 
-      h_skill_test:{es:"Automatización de pruebas", en:"Test Automation"},
-      h_skill_prog:{es:"Programación", en:"Programming"},
-      h_skill_method:{es:"Metodologías", en:"Methodologies"},
-      h_skill_mgmt:{es:"Gestión", en:"Management"},
-      skill_leadership:{es:"Liderazgo de equipos", en:"Team Leadership"},
-      skill_mentoring:{es:"Mentoría técnica", en:"Technical Mentoring"},
+      h_skill_test:{es:"Automatización de pruebas", en:"Test Automation", pt:"Automação de testes"},
+      h_skill_prog:{es:"Programación", en:"Programming", pt:"Programação"},
+      h_skill_method:{es:"Metodologías", en:"Methodologies", pt:"Metodologias"},
+      h_skill_mgmt:{es:"Gestión", en:"Management", pt:"Gestão"},
+      skill_leadership:{es:"Liderazgo de equipos", en:"Team Leadership", pt:"Liderança de equipes"},
+      skill_mentoring:{es:"Mentoría técnica", en:"Technical Mentoring", pt:"Mentoria técnica"},
 
-      lang_es_label:{es:"Español", en:"Spanish"},
-      lvl_native:{es:"Nativo", en:"Native"},
-      lang_en_label:{es:"Inglés", en:"English"},
-      lvl_prof:{es:"Profesional - técnico", en:"Professional - Technical"},
+      lang_es_label:{es:"Español", en:"Spanish", pt:"Espanhol"},
+      lvl_native:{es:"Nativo", en:"Native", pt:"Nativo"},
+      lang_en_label:{es:"Inglés", en:"English", pt:"Inglês"},
+      lvl_prof:{es:"Profesional - técnico", en:"Professional - Technical", pt:"Profissional - técnico"},
 
-      hobby1:{es:"Investigación de IA y metodologías ágiles", en:"AI research &amp; agile methodologies"},
-      hobby2:{es:"Tendencias de QA", en:"QA trends"},
-      hobby3:{es:"Pensamiento estructurado", en:"Structured thinking"},
+      hobby1:{es:"Investigación de IA y metodologías ágiles", en:"AI research &amp; agile methodologies", pt:"Pesquisa em IA e metodologias ágeis"},
+      hobby2:{es:"Tendencias de QA", en:"QA trends", pt:"Tendências de QA"},
+      hobby3:{es:"Pensamiento estructurado", en:"Structured thinking", pt:"Pensamento estruturado"},
 
-      h_perfil:{es:"Perfil profesional", en:"Professional Profile"},
+      h_perfil:{es:"Perfil profesional", en:"Professional Profile", pt:"Perfil profissional"},
       perfil_text:{
         es:"Ingeniero en Informática con MBA y amplia trayectoria en desarrollo y automatización de pruebas (QA Automation / SDET). Especializado en la arquitectura, diseño e implementación de frameworks de automatización web y móvil desde cero utilizando Playwright, Appium, Serenity BDD, TypeScript y Java. Apasionado por los principios de Clean Code, diseño de software robusto, pruebas de API, pruebas de rendimiento y estrategias de datos (seeding y mocks) para optimizar pipelines de CI/CD y garantizar entregas de software continuas, escalables y sin fricciones.",
-        en:"Computer Engineer with an MBA and extensive experience in software development and test automation (QA Automation / SDET). Specialized in architecting, designing, and implementing web and mobile automation frameworks from scratch using Playwright, Appium, Serenity BDD, TypeScript, and Java. Passionate about Clean Code principles, robust software design, API testing, performance testing, and data strategies (seeding and mocks) to optimize CI/CD pipelines and ensure continuous, scalable, friction-free software delivery."
+        en:"Computer Engineer with an MBA and extensive experience in software development and test automation (QA Automation / SDET). Specialized in architecting, designing, and implementing web and mobile automation frameworks from scratch using Playwright, Appium, Serenity BDD, TypeScript, and Java. Passionate about Clean Code principles, robust software design, API testing, performance testing, and data strategies (seeding and mocks) to optimize CI/CD pipelines and ensure continuous, scalable, friction-free software delivery.",
+        pt:"Engenheiro da Computação com MBA e ampla experiência em desenvolvimento e automação de testes (QA Automation / SDET). Especializado na arquitetura, design e implementação de frameworks de automação web e mobile do zero utilizando Playwright, Appium, Serenity BDD, TypeScript e Java. Apaixonado pelos princípios de Clean Code, design de software robusto, testes de API, testes de desempenho e estratégias de dados (seeding e mocks) para otimizar pipelines de CI/CD e garantir entregas de software contínuas, escaláveis e sem atritos."
       },
 
-      h_formacion:{es:"Formación", en:"Education"},
-      edu1_title:{es:"MBA Administración de Empresas", en:"MBA in Business Administration"},
-      edu2_title:{es:"Ingeniería en Informática", en:"Computer Engineering"},
+      h_formacion:{es:"Formación", en:"Education", pt:"Formação"},
+      edu1_title:{es:"MBA Administración de Empresas", en:"MBA in Business Administration", pt:"MBA em Administração de Empresas"},
+      edu2_title:{es:"Ingeniería en Informática", en:"Computer Engineering", pt:"Engenharia da Computação"},
 
-      h_experiencia:{es:"Experiencia profesional", en:"Professional Experience"},
+      h_experiencia:{es:"Experiencia profesional", en:"Professional Experience", pt:"Experiência profissional"},
 
-      job1_title:{es:"Ingeniero de Automatización", en:"Automation Engineer"},
-      job1_dates:{es:"Dic 2021 — Presente", en:"Dec 2021 — Present"},
-      job1_b1:{es:"<strong>Diseño e implemento estrategias de prueba integrales y reportes de métricas de calidad</strong>, alineando los objetivos de entrega bajo metodologías Ágiles (Scrum/Kanban) para asegurar la excelencia del software.", en:"<strong>Design and implement comprehensive test strategies and quality metrics reporting</strong>, aligning delivery goals under Agile methodologies (Scrum/Kanban) to ensure software excellence."},
-      job1_b2:{es:"<strong>Diseño, desarrollo y mantenimiento de frameworks de automatización robustos</strong> para Web, Mobile (iOS/Android) y APIs utilizando Playwright con TypeScript, Appium, Serenity BDD y Karate Framework, incrementando la cobertura de pruebas.", en:"<strong>Design, develop, and maintain robust automation frameworks</strong> for Web, Mobile (iOS/Android), and APIs using Playwright with TypeScript, Appium, Serenity BDD, and Karate Framework, increasing test coverage."},
-      job1_b3:{es:"<strong>Configuro, optimizo y mantengo pipelines de Integración Continua y Entrega Continua (CI/CD)</strong> para la ejecución automatizada de suites de pruebas, facilitando la detección temprana de defectos y proporcionando retroalimentación continua durante el ciclo de desarrollo.", en:"<strong>Configure, optimize, and maintain Continuous Integration and Continuous Delivery (CI/CD) pipelines</strong> for automated test suite execution, enabling early defect detection and continuous feedback throughout the development cycle."},
-      job1_b4:{es:"<strong>Planifico y ejecuto pruebas de rendimiento y escalabilidad utilizando k6 y Apache JMeter</strong>, garantizando la estabilidad del sistema bajo alta concurrencia en entornos de transacciones financieras críticas.", en:"<strong>Plan and execute performance and scalability testing using k6 and Apache JMeter</strong>, ensuring system stability under high concurrency in critical financial transaction environments."},
-      job1_b5:{es:"<strong>Implemento tableros de reportes automatizados y sistemas de monitoreo de calidad</strong>, proporcionando visibilidad en tiempo real del estado de los despliegues a stakeholders y líderes técnicos.", en:"<strong>Implement automated reporting dashboards and quality monitoring systems</strong>, providing real-time visibility into deployment status for stakeholders and technical leads."},
-      job1_b6:{es:"<strong>Gestiono entornos de QA y arquitectura de datos de prueba complejos</strong>, optimizando la extracción y recuperación de datos con Stratio e implementando simulación de servicios (service mocking) para el aislamiento y estabilidad de pruebas de componentes.", en:"<strong>Manage QA environments and complex test data architecture</strong>, optimizing data extraction and retrieval with Stratio and implementing service mocking for component test isolation and stability."},
+      job1_title:{es:"Ingeniero de Automatización", en:"Automation Engineer", pt:"Engenheiro de Automação"},
+      job1_dates:{es:"Dic 2021 — Presente", en:"Dec 2021 — Present", pt:"Dez 2021 — Presente"},
+      job1_b1:{es:"<strong>Diseño e implemento estrategias de prueba integrales y reportes de métricas de calidad</strong>, alineando los objetivos de entrega bajo metodologías Ágiles (Scrum/Kanban) para asegurar la excelencia del software.", en:"<strong>Design and implement comprehensive test strategies and quality metrics reporting</strong>, aligning delivery goals under Agile methodologies (Scrum/Kanban) to ensure software excellence.", pt:"<strong>Projeto e implemento estratégias de teste abrangentes e relatórios de métricas de qualidade</strong>, alinhando os objetivos de entrega sob metodologias Ágeis (Scrum/Kanban) para garantir a excelência do software."},
+      job1_b2:{es:"<strong>Diseño, desarrollo y mantenimiento de frameworks de automatización robustos</strong> para Web, Mobile (iOS/Android) y APIs utilizando Playwright con TypeScript, Appium, Serenity BDD y Karate Framework, incrementando la cobertura de pruebas.", en:"<strong>Design, develop, and maintain robust automation frameworks</strong> for Web, Mobile (iOS/Android), and APIs using Playwright with TypeScript, Appium, Serenity BDD, and Karate Framework, increasing test coverage.", pt:"<strong>Projeto, desenvolvo e mantenho frameworks de automação robustos</strong> para Web, Mobile (iOS/Android) e APIs utilizando Playwright com TypeScript, Appium, Serenity BDD e Karate Framework, aumentando a cobertura de testes."},
+      job1_b3:{es:"<strong>Configuro, optimizo y mantengo pipelines de Integración Continua y Entrega Continua (CI/CD)</strong> para la ejecución automatizada de suites de pruebas, facilitando la detección temprana de defectos y proporcionando retroalimentación continua durante el ciclo de desarrollo.", en:"<strong>Configure, optimize, and maintain Continuous Integration and Continuous Delivery (CI/CD) pipelines</strong> for automated test suite execution, enabling early defect detection and continuous feedback throughout the development cycle.", pt:"<strong>Configuro, otimizo e mantenho pipelines de Integração Contínua e Entrega Contínua (CI/CD)</strong> para a execução automatizada de suítes de teste, facilitando a detecção precoce de defeitos e fornecendo feedback contínuo durante o ciclo de desenvolvimento."},
+      job1_b4:{es:"<strong>Planifico y ejecuto pruebas de rendimiento y escalabilidad utilizando k6 y Apache JMeter</strong>, garantizando la estabilidad del sistema bajo alta concurrencia en entornos de transacciones financieras críticas.", en:"<strong>Plan and execute performance and scalability testing using k6 and Apache JMeter</strong>, ensuring system stability under high concurrency in critical financial transaction environments.", pt:"<strong>Planejo e executo testes de desempenho e escalabilidade utilizando k6 e Apache JMeter</strong>, garantindo a estabilidade do sistema sob alta concorrência em ambientes de transações financeiras críticas."},
+      job1_b5:{es:"<strong>Implemento tableros de reportes automatizados y sistemas de monitoreo de calidad</strong>, proporcionando visibilidad en tiempo real del estado de los despliegues a stakeholders y líderes técnicos.", en:"<strong>Implement automated reporting dashboards and quality monitoring systems</strong>, providing real-time visibility into deployment status for stakeholders and technical leads.", pt:"<strong>Implemento painéis de relatórios automatizados e sistemas de monitoramento de qualidade</strong>, fornecendo visibilidade em tempo real do status dos deployments para stakeholders e líderes técnicos."},
+      job1_b6:{es:"<strong>Gestiono entornos de QA y arquitectura de datos de prueba complejos</strong>, optimizando la extracción y recuperación de datos con Stratio e implementando simulación de servicios (service mocking) para el aislamiento y estabilidad de pruebas de componentes.", en:"<strong>Manage QA environments and complex test data architecture</strong>, optimizing data extraction and retrieval with Stratio and implementing service mocking for component test isolation and stability.", pt:"<strong>Gerencio ambientes de QA e arquitetura de dados de teste complexos</strong>, otimizando a extração e recuperação de dados com Stratio e implementando simulação de serviços (service mocking) para isolamento e estabilidade de testes de componentes."},
 
-      job2_title:{es:"Ingeniero de Calidad", en:"Quality Engineer"},
-      job2_dates:{es:"Sep 2013 — Nov 2021", en:"Sep 2013 — Nov 2021"},
-      job2_b1:{es:"<strong>Analicé y validé historias de usuario, requisitos funcionales y criterios de aceptación</strong>, participando activamente en equipos multidisciplinarios bajo metodologías ágiles Scrum y Kanban para asegurar la correcta definición de los criterios de calidad antes de la implementación.", en:"<strong>Analyzed and validated user stories, functional requirements, and acceptance criteria</strong>, actively participating in cross-functional teams under Agile methodologies (Scrum and Kanban) to ensure quality criteria were properly defined before implementation."},
-      job2_b2:{es:"<strong>Diseñé y documenté casos y suites de prueba detallados</strong>, definiendo escenarios funcionales, positivos, negativos y de validación, así como la preparación y gestión de datos de prueba en entornos de staging.", en:"<strong>Designed and documented detailed test cases and suites</strong>, defining functional, positive, negative, and validation scenarios, as well as preparing and managing test data in staging environments."},
-      job2_b3:{es:"<strong>Ejecuté pruebas de humo (Smoke Testing), regresión y validación funcional</strong> para verificar la estabilidad de las aplicaciones después de cada despliegue, identificando riesgos y defectos antes de su paso a producción.", en:"<strong>Executed smoke testing, regression, and functional validation</strong> to verify application stability after each deployment, identifying risks and defects before they reached production."},
-      job2_b4:{es:"<strong>Evolucioné mis funciones hacia la automatización y optimización de procesos operativos</strong>, implementando robots de software mediante RPA con UiPath para acelerar tareas repetitivas y validaciones críticas.", en:"<strong>Evolved my role toward automation and operational process optimization</strong>, implementing software robots through RPA with UiPath to accelerate repetitive tasks and critical validations."},
-      job2_b5:{es:"<strong>Ejecuté y analicé pruebas de carga y estrés utilizando Apache JMeter</strong> para evaluar la estabilidad del sistema y los tiempos de respuesta bajo alto tráfico de usuarios.", en:"<strong>Executed and analyzed load and stress testing using Apache JMeter</strong> to evaluate system stability and response times under high user traffic."},
-      job2_b6:{es:"<strong>Monitoreé la calidad del código y los pipelines de despliegue</strong> revisando reportes de análisis estático en SonarQube y realizando el seguimiento de los estados de las construcciones (builds) dentro de entornos CI/CD de Jenkins.", en:"<strong>Monitored code quality and deployment pipelines</strong> by reviewing static analysis reports in SonarQube and tracking build statuses within Jenkins CI/CD environments."},
+      job2_title:{es:"Ingeniero de Calidad", en:"Quality Engineer", pt:"Engenheiro de Qualidade"},
+      job2_dates:{es:"Sep 2013 — Nov 2021", en:"Sep 2013 — Nov 2021", pt:"Set 2013 — Nov 2021"},
+      job2_b1:{es:"<strong>Analicé y validé historias de usuario, requisitos funcionales y criterios de aceptación</strong>, participando activamente en equipos multidisciplinarios bajo metodologías ágiles Scrum y Kanban para asegurar la correcta definición de los criterios de calidad antes de la implementación.", en:"<strong>Analyzed and validated user stories, functional requirements, and acceptance criteria</strong>, actively participating in cross-functional teams under Agile methodologies (Scrum and Kanban) to ensure quality criteria were properly defined before implementation.", pt:"<strong>Analisei e validei histórias de usuário, requisitos funcionais e critérios de aceitação</strong>, participando ativamente em equipes multidisciplinares sob metodologias ágeis Scrum e Kanban para garantir a correta definição dos critérios de qualidade antes da implementação."},
+      job2_b2:{es:"<strong>Diseñé y documenté casos y suites de prueba detallados</strong>, definiendo escenarios funcionales, positivos, negativos y de validación, así como la preparación y gestión de datos de prueba en entornos de staging.", en:"<strong>Designed and documented detailed test cases and suites</strong>, defining functional, positive, negative, and validation scenarios, as well as preparing and managing test data in staging environments.", pt:"<strong>Projetei e documentei casos e suítes de teste detalhados</strong>, definindo cenários funcionais, positivos, negativos e de validação, além da preparação e gestão de dados de teste em ambientes de staging."},
+      job2_b3:{es:"<strong>Ejecuté pruebas de humo (Smoke Testing), regresión y validación funcional</strong> para verificar la estabilidad de las aplicaciones después de cada despliegue, identificando riesgos y defectos antes de su paso a producción.", en:"<strong>Executed smoke testing, regression, and functional validation</strong> to verify application stability after each deployment, identifying risks and defects before they reached production.", pt:"<strong>Executei testes de fumaça (Smoke Testing), regressão e validação funcional</strong> para verificar a estabilidade das aplicações após cada deployment, identificando riscos e defeitos antes de sua ida para produção."},
+      job2_b4:{es:"<strong>Evolucioné mis funciones hacia la automatización y optimización de procesos operativos</strong>, implementando robots de software mediante RPA con UiPath para acelerar tareas repetitivas y validaciones críticas.", en:"<strong>Evolved my role toward automation and operational process optimization</strong>, implementing software robots through RPA with UiPath to accelerate repetitive tasks and critical validations.", pt:"<strong>Evoluí minhas funções rumo à automação e otimização de processos operacionais</strong>, implementando robôs de software por meio de RPA com UiPath para acelerar tarefas repetitivas e validações críticas."},
+      job2_b5:{es:"<strong>Ejecuté y analicé pruebas de carga y estrés utilizando Apache JMeter</strong> para evaluar la estabilidad del sistema y los tiempos de respuesta bajo alto tráfico de usuarios.", en:"<strong>Executed and analyzed load and stress testing using Apache JMeter</strong> to evaluate system stability and response times under high user traffic.", pt:"<strong>Executei e analisei testes de carga e estresse utilizando Apache JMeter</strong> para avaliar a estabilidade do sistema e os tempos de resposta sob alto tráfego de usuários."},
+      job2_b6:{es:"<strong>Monitoreé la calidad del código y los pipelines de despliegue</strong> revisando reportes de análisis estático en SonarQube y realizando el seguimiento de los estados de las construcciones (builds) dentro de entornos CI/CD de Jenkins.", en:"<strong>Monitored code quality and deployment pipelines</strong> by reviewing static analysis reports in SonarQube and tracking build statuses within Jenkins CI/CD environments.", pt:"<strong>Monitorei a qualidade do código e os pipelines de deployment</strong> revisando relatórios de análise estática no SonarQube e acompanhando os status das builds dentro de ambientes CI/CD do Jenkins."},
 
-      job3_title:{es:"Analista de Calidad", en:"Quality Analyst"},
-      job3_dates:{es:"Ene 2010 — Sep 2013", en:"Jan 2010 — Sep 2013"},
-      job3_b1:{es:"<strong>Analicé casos de uso y requerimientos funcionales</strong> para diseñar, escribir y estructurar escenarios de prueba detallados utilizando MS Excel e IBM Rational Quality Manager (RQM).", en:"<strong>Analyzed use cases and functional requirements</strong> to design, write, and structure detailed test scenarios using MS Excel and IBM Rational Quality Manager (RQM)."},
-      job3_b2:{es:"<strong>Ejecuté pruebas manuales funcionales, de regresión y de humo utilizando Jtrac</strong> para realizar el seguimiento de la ejecución de pruebas y validar nuevas funcionalidades.", en:"<strong>Executed manual functional, regression, and smoke testing using Jtrac</strong> to track test execution and validate new functionality."},
-      job3_b3:{es:"<strong>Ejecuté y optimicé consultas SQL utilizando Oracle SQL Developer y Explain Plan</strong> para realizar la validación de la base de datos (backend), analizar el rendimiento de las consultas y garantizar la integridad de los datos.", en:"<strong>Executed and optimized SQL queries using Oracle SQL Developer and Explain Plan</strong> to perform backend database validation, analyze query performance, and ensure data integrity."},
-      job3_b4:{es:"<strong>Gestioné y versioné artefactos de prueba, documentación y scripts SQL utilizando IBM Rational ClearCase</strong> para mantener el control de las líneas base (baselines) a través de los diferentes entornos.", en:"<strong>Managed and versioned test artifacts, documentation, and SQL scripts using IBM Rational ClearCase</strong> to maintain baseline control across different environments."},
-      job3_b5:{es:"<strong>Realicé pruebas básicas de APIs y Web Services utilizando SoapUI</strong> para verificar los payloads de las peticiones (requests) y respuestas (responses).", en:"<strong>Performed basic API and Web Services testing using SoapUI</strong> to verify request and response payloads."},
+      job3_title:{es:"Analista de Calidad", en:"Quality Analyst", pt:"Analista de Qualidade"},
+      job3_dates:{es:"Ene 2010 — Sep 2013", en:"Jan 2010 — Sep 2013", pt:"Jan 2010 — Set 2013"},
+      job3_b1:{es:"<strong>Analicé casos de uso y requerimientos funcionales</strong> para diseñar, escribir y estructurar escenarios de prueba detallados utilizando MS Excel e IBM Rational Quality Manager (RQM).", en:"<strong>Analyzed use cases and functional requirements</strong> to design, write, and structure detailed test scenarios using MS Excel and IBM Rational Quality Manager (RQM).", pt:"<strong>Analisei casos de uso e requisitos funcionais</strong> para projetar, escrever e estruturar cenários de teste detalhados utilizando MS Excel e IBM Rational Quality Manager (RQM)."},
+      job3_b2:{es:"<strong>Ejecuté pruebas manuales funcionales, de regresión y de humo utilizando Jtrac</strong> para realizar el seguimiento de la ejecución de pruebas y validar nuevas funcionalidades.", en:"<strong>Executed manual functional, regression, and smoke testing using Jtrac</strong> to track test execution and validate new functionality.", pt:"<strong>Executei testes manuais funcionais, de regressão e de fumaça utilizando Jtrac</strong> para acompanhar a execução dos testes e validar novas funcionalidades."},
+      job3_b3:{es:"<strong>Ejecuté y optimicé consultas SQL utilizando Oracle SQL Developer y Explain Plan</strong> para realizar la validación de la base de datos (backend), analizar el rendimiento de las consultas y garantizar la integridad de los datos.", en:"<strong>Executed and optimized SQL queries using Oracle SQL Developer and Explain Plan</strong> to perform backend database validation, analyze query performance, and ensure data integrity.", pt:"<strong>Executei e otimizei consultas SQL utilizando Oracle SQL Developer e Explain Plan</strong> para realizar a validação do banco de dados (backend), analisar o desempenho das consultas e garantir a integridade dos dados."},
+      job3_b4:{es:"<strong>Gestioné y versioné artefactos de prueba, documentación y scripts SQL utilizando IBM Rational ClearCase</strong> para mantener el control de las líneas base (baselines) a través de los diferentes entornos.", en:"<strong>Managed and versioned test artifacts, documentation, and SQL scripts using IBM Rational ClearCase</strong> to maintain baseline control across different environments.", pt:"<strong>Gerenciei e versionei artefatos de teste, documentação e scripts SQL utilizando IBM Rational ClearCase</strong> para manter o controle das linhas de base (baselines) através dos diferentes ambientes."},
+      job3_b5:{es:"<strong>Realicé pruebas básicas de APIs y Web Services utilizando SoapUI</strong> para verificar los payloads de las peticiones (requests) y respuestas (responses).", en:"<strong>Performed basic API and Web Services testing using SoapUI</strong> to verify request and response payloads.", pt:"<strong>Realizei testes básicos de APIs e Web Services utilizando SoapUI</strong> para verificar os payloads das requisições e respostas."},
 
-      job4_title:{es:"Administrador de Servidores", en:"Server Administrator"},
-      job4_dates:{es:"2007 — Nov 2009", en:"2007 — Nov 2009"},
-      job4_b1:{es:"<strong>Administré infraestructura de servidores</strong> garantizando disponibilidad y continuidad operativa.", en:"<strong>Administered server infrastructure</strong>, ensuring availability and operational continuity."},
-      job4_b2:{es:"<strong>Implementé procesos de monitoreo y respaldo</strong>, reduciendo tiempos de indisponibilidad.", en:"<strong>Implemented monitoring and backup processes</strong>, reducing downtime."},
+      job4_title:{es:"Administrador de Servidores", en:"Server Administrator", pt:"Administrador de Servidores"},
+      job4_dates:{es:"2007 — Nov 2009", en:"2007 — Nov 2009", pt:"2007 — Nov 2009"},
+      job4_b1:{es:"<strong>Administré infraestructura de servidores</strong> garantizando disponibilidad y continuidad operativa.", en:"<strong>Administered server infrastructure</strong>, ensuring availability and operational continuity.", pt:"<strong>Administrei infraestrutura de servidores</strong> garantindo disponibilidade e continuidade operacional."},
+      job4_b2:{es:"<strong>Implementé procesos de monitoreo y respaldo</strong>, reduciendo tiempos de indisponibilidad.", en:"<strong>Implemented monitoring and backup processes</strong>, reducing downtime.", pt:"<strong>Implementei processos de monitoramento e backup</strong>, reduzindo o tempo de indisponibilidade."},
 
-      job5_title:{es:"Asistente de Sistemas", en:"Systems Assistant"},
-      job5_dates:{es:"2006 — Mar 2007", en:"2006 — Mar 2007"},
-      job5_b1:{es:"<strong>Brindé soporte técnico de primer nivel</strong> a la plataforma tecnológica del centro de contacto.", en:"<strong>Provided first-level technical support</strong> for the contact center's technology platform."},
-      job5_b2:{es:"<strong>Colaboré en el mantenimiento de sistemas y bases de datos</strong> del área operativa.", en:"<strong>Collaborated on systems and database maintenance</strong> for the operations area."},
+      job5_title:{es:"Asistente de Sistemas", en:"Systems Assistant", pt:"Assistente de Sistemas"},
+      job5_dates:{es:"2006 — Mar 2007", en:"2006 — Mar 2007", pt:"2006 — Mar 2007"},
+      job5_b1:{es:"<strong>Brindé soporte técnico de primer nivel</strong> a la plataforma tecnológica del centro de contacto.", en:"<strong>Provided first-level technical support</strong> for the contact center's technology platform.", pt:"<strong>Prestei suporte técnico de primeiro nível</strong> à plataforma tecnológica do centro de contato."},
+      job5_b2:{es:"<strong>Colaboré en el mantenimiento de sistemas y bases de datos</strong> del área operativa.", en:"<strong>Collaborated on systems and database maintenance</strong> for the operations area.", pt:"<strong>Colaborei na manutenção de sistemas e bancos de dados</strong> da área operacional."},
 
-      h_cursos:{es:"Cursos y certificaciones", en:"Courses &amp; Certifications"},
-      crs1:{es:"Stratio Generative AI Data Governance", en:"Stratio Generative AI Data Governance"},
-      crs2:{es:"Stratio Generative AI Data Fabric Basics", en:"Stratio Generative AI Data Fabric Basics"},
-      crs3:{es:"Fundamentos de IA aplicada a QA y Testing Inteligente", en:"Fundamentals of AI Applied to QA and Intelligent Testing"},
-      crs4:{es:"Serenity BDD avanzado con Screenplay Pattern", en:"Advanced Serenity BDD with the Screenplay Pattern"},
-      crs5:{es:"Karate DSL: API Automation and Performance from Zero to Hero", en:"Karate DSL: API Automation and Performance from Zero to Hero"},
-      crs6:{es:"Automatización de Pruebas Serenity", en:"Serenity Test Automation"},
-      crs7:{es:"K6: Pruebas de Rendimiento y Carga para Principiantes", en:"K6: Performance and Load Testing for Beginners"},
-      crs8:{es:"ISTQB Agile Tester Certified Tester (CTFL-AT)", en:"ISTQB Agile Tester Certified Tester (CTFL-AT)"},
-      crs9:{es:"ISTQB Certified Tester Foundation Level (CTFL 4.0)", en:"ISTQB Certified Tester Foundation Level (CTFL 4.0)"},
-      crs10:{es:"Dynatrace Fundamentals", en:"Dynatrace Fundamentals"},
-      crs11:{es:"Site Reliability Engineering (SRE): The Big Picture", en:"Site Reliability Engineering (SRE): The Big Picture"},
-      crs12:{es:"Developing Docker Apps: Core Principles", en:"Developing Docker Apps: Core Principles"},
-      crs13:{es:"DevOps Foundations: Continuous Integration and Continuous Delivery", en:"DevOps Foundations: Continuous Integration and Continuous Delivery"},
-      crs14:{es:"Aceleración del desarrollo de aplicaciones mediante GitHub Copilot", en:"Accelerating Application Development with GitHub Copilot"},
-      crs15:{es:"Curso Completo de Microsoft Azure Fundamentals (AZ-900)", en:"Complete Microsoft Azure Fundamentals Course (AZ-900)"},
-      crs16:{es:"Liderazgo", en:"Leadership"},
-      crs17:{es:"Resolución de Problemas a través del Pensamiento Crítico", en:"Problem Solving through Critical Thinking"},
-      crs18:{es:"Manejo Efectivo del Tiempo", en:"Effective Time Management"},
-      crs19:{es:"Automatización de pruebas con Playwright y TypeScript", en:"Test Automation with Playwright and TypeScript"},
-      crs20:{es:"AWS: Arquitecto Soluciones Certificado", en:"AWS Certified Solutions Architect"},
-      crs21:{es:"Scrum Fundamentals Certified", en:"Scrum Fundamentals Certified"},
-      crs22:{es:"Official Scrum Master Certification", en:"Official Scrum Master Certification"},
+      h_cursos:{es:"Cursos y certificaciones", en:"Courses &amp; Certifications", pt:"Cursos e certificações"},
+      crs1:{es:"Stratio Generative AI Data Governance", en:"Stratio Generative AI Data Governance", pt:"Stratio Generative AI Data Governance"},
+      crs2:{es:"Stratio Generative AI Data Fabric Basics", en:"Stratio Generative AI Data Fabric Basics", pt:"Stratio Generative AI Data Fabric Basics"},
+      crs3:{es:"Fundamentos de IA aplicada a QA y Testing Inteligente", en:"Fundamentals of AI Applied to QA and Intelligent Testing", pt:"Fundamentos de IA aplicada a QA e Testes Inteligentes"},
+      crs4:{es:"Serenity BDD avanzado con Screenplay Pattern", en:"Advanced Serenity BDD with the Screenplay Pattern", pt:"Serenity BDD avançado com Screenplay Pattern"},
+      crs5:{es:"Karate DSL: API Automation and Performance from Zero to Hero", en:"Karate DSL: API Automation and Performance from Zero to Hero", pt:"Karate DSL: API Automation and Performance from Zero to Hero"},
+      crs6:{es:"Automatización de Pruebas Serenity", en:"Serenity Test Automation", pt:"Automação de Testes Serenity"},
+      crs7:{es:"K6: Pruebas de Rendimiento y Carga para Principiantes", en:"K6: Performance and Load Testing for Beginners", pt:"K6: Testes de Desempenho e Carga para Iniciantes"},
+      crs8:{es:"ISTQB Agile Tester Certified Tester (CTFL-AT)", en:"ISTQB Agile Tester Certified Tester (CTFL-AT)", pt:"ISTQB Agile Tester Certified Tester (CTFL-AT)"},
+      crs9:{es:"ISTQB Certified Tester Foundation Level (CTFL 4.0)", en:"ISTQB Certified Tester Foundation Level (CTFL 4.0)", pt:"ISTQB Certified Tester Foundation Level (CTFL 4.0)"},
+      crs10:{es:"Dynatrace Fundamentals", en:"Dynatrace Fundamentals", pt:"Dynatrace Fundamentals"},
+      crs11:{es:"Site Reliability Engineering (SRE): The Big Picture", en:"Site Reliability Engineering (SRE): The Big Picture", pt:"Site Reliability Engineering (SRE): The Big Picture"},
+      crs12:{es:"Developing Docker Apps: Core Principles", en:"Developing Docker Apps: Core Principles", pt:"Developing Docker Apps: Core Principles"},
+      crs13:{es:"DevOps Foundations: Continuous Integration and Continuous Delivery", en:"DevOps Foundations: Continuous Integration and Continuous Delivery", pt:"DevOps Foundations: Continuous Integration and Continuous Delivery"},
+      crs14:{es:"Aceleración del desarrollo de aplicaciones mediante GitHub Copilot", en:"Accelerating Application Development with GitHub Copilot", pt:"Aceleração do desenvolvimento de aplicações com GitHub Copilot"},
+      crs15:{es:"Curso Completo de Microsoft Azure Fundamentals (AZ-900)", en:"Complete Microsoft Azure Fundamentals Course (AZ-900)", pt:"Curso Completo de Microsoft Azure Fundamentals (AZ-900)"},
+      crs16:{es:"Liderazgo", en:"Leadership", pt:"Liderança"},
+      crs17:{es:"Resolución de Problemas a través del Pensamiento Crítico", en:"Problem Solving through Critical Thinking", pt:"Resolução de Problemas através do Pensamento Crítico"},
+      crs18:{es:"Manejo Efectivo del Tiempo", en:"Effective Time Management", pt:"Gestão Eficaz do Tempo"},
+      crs19:{es:"Automatización de pruebas con Playwright y TypeScript", en:"Test Automation with Playwright and TypeScript", pt:"Automação de Testes com Playwright e TypeScript"},
+      crs20:{es:"AWS: Arquitecto Soluciones Certificado", en:"AWS Certified Solutions Architect", pt:"AWS: Arquiteto de Soluções Certificado"},
+      crs21:{es:"Scrum Fundamentals Certified", en:"Scrum Fundamentals Certified", pt:"Scrum Fundamentals Certified"},
+      crs22:{es:"Official Scrum Master Certification", en:"Official Scrum Master Certification", pt:"Official Scrum Master Certification"},
 
-      h_referencias:{es:"Referencias laborales", en:"Professional References"},
-      ref1_role:{es:"Líder de Automatización — Banco Pichincha", en:"Automation Lead — Banco Pichincha"},
-      ref2_role:{es:"Coordinadora de Calidad — DNTI, IESS", en:"Quality Coordinator — DNTI, IESS"},
-      ref3_role:{es:"Jefe de Proyectos — SONDA S.A", en:"Project Manager — SONDA S.A"},
+      h_referencias:{es:"Referencias laborales", en:"Professional References", pt:"Referências profissionais"},
+      ref1_role:{es:"Líder de Automatización — Banco Pichincha", en:"Automation Lead — Banco Pichincha", pt:"Líder de Automação — Banco Pichincha"},
+      ref2_role:{es:"Coordinadora de Calidad — DNTI, IESS", en:"Quality Coordinator — DNTI, IESS", pt:"Coordenadora de Qualidade — DNTI, IESS"},
+      ref3_role:{es:"Jefe de Proyectos — SONDA S.A", en:"Project Manager — SONDA S.A", pt:"Gerente de Projetos — SONDA S.A"},
 
-      footer_text:{es:"© 2026 Edison Giovanny Tarambis Enriquez — CV en línea", en:"© 2026 Edison Giovanny Tarambis Enriquez — Online CV"}
+      footer_text:{es:"© 2026 Edison Giovanny Tarambis Enriquez — CV en línea", en:"© 2026 Edison Giovanny Tarambis Enriquez — Online CV", pt:"© 2026 Edison Giovanny Tarambis Enriquez — Currículo online"}
     };
 
     var TITLES = {
       es:"Edison Tarambis · CV — Ingeniero de Automatización de Pruebas",
-      en:"Edison Tarambis · CV — Test Automation Engineer"
+      en:"Edison Tarambis · CV — Test Automation Engineer",
+      pt:"Edison Tarambis · CV — Engenheiro de Automação de Testes"
     };
 
     var ARIA = {
-      theme_to_dark:{es:"Activar modo oscuro", en:"Enable dark mode"},
-      theme_to_light:{es:"Activar modo claro", en:"Enable light mode"},
-      share:{es:"Compartir este CV", en:"Share this CV"},
-      lang:{es:"Cambiar idioma", en:"Change language"},
-      print:{es:"Imprimir CV", en:"Print CV"},
-      download:{es:"Descargar CV en PDF", en:"Download CV as PDF"},
-      modal_close:{es:"Cerrar", en:"Close"}
+      theme_to_dark:{es:"Activar modo oscuro", en:"Enable dark mode", pt:"Ativar modo escuro"},
+      theme_to_light:{es:"Activar modo claro", en:"Enable light mode", pt:"Ativar modo claro"},
+      share:{es:"Compartir este CV", en:"Share this CV", pt:"Compartilhar este currículo"},
+      lang:{es:"Cambiar idioma", en:"Change language", pt:"Mudar idioma"},
+      print:{es:"Imprimir CV", en:"Print CV", pt:"Imprimir currículo"},
+      download:{es:"Descargar CV en PDF", en:"Download CV as PDF", pt:"Baixar currículo em PDF"},
+      modal_close:{es:"Cerrar", en:"Close", pt:"Fechar"}
     };
 
     var TOAST = {
-      copied:{es:"¡Enlace copiado!", en:"Link copied!"},
-      copy_error:{es:"No se pudo copiar el enlace", en:"Could not copy the link"}
+      copied:{es:"¡Enlace copiado!", en:"Link copied!", pt:"Link copiado!"},
+      copy_error:{es:"No se pudo copiar el enlace", en:"Could not copy the link", pt:"Não foi possível copiar o link"}
     };
 
-    var currentLang = (document.documentElement.lang === 'en') ? 'en' : 'es';
+    var currentLang = ['en', 'pt'].indexOf(document.documentElement.lang) !== -1 ? document.documentElement.lang : 'es';
 
     /* ===================== Tema claro / oscuro ===================== */
     var btnTheme = document.getElementById('btnTheme');
@@ -1438,7 +1450,8 @@
     /* ===================== Compartir ===================== */
     var SHARE_TEXT = {
       es:"Mira el CV de Edison Tarambis, Ingeniero de Automatización de Pruebas (QA/SDET)",
-      en:"Check out Edison Tarambis's CV, Test Automation Engineer (QA/SDET)"
+      en:"Check out Edison Tarambis's CV, Test Automation Engineer (QA/SDET)",
+      pt:"Veja o currículo de Edison Tarambis, Engenheiro de Automação de Testes (QA/SDET)"
     };
 
     var toastEl = document.getElementById('toast');
@@ -1569,8 +1582,10 @@
     });
 
     /* ===================== Aplicar idioma ===================== */
+    var LANG_FLAGS = { es:'🇪🇸', en:'🇺🇸', pt:'🇧🇷' };
+
     function setLanguage(lang) {
-      if (lang !== 'es' && lang !== 'en') lang = 'es';
+      if (lang !== 'es' && lang !== 'en' && lang !== 'pt') lang = 'es';
       currentLang = lang;
       document.documentElement.lang = lang;
       document.title = TITLES[lang];
@@ -1582,7 +1597,7 @@
         }
       });
 
-      langFlag.textContent = lang === 'en' ? '🇺🇸' : '🇪🇸';
+      langFlag.textContent = LANG_FLAGS[lang];
       langMenu.querySelectorAll('li').forEach(function (li) {
         li.setAttribute('aria-selected', li.getAttribute('data-lang') === lang ? 'true' : 'false');
       });
@@ -1612,7 +1627,7 @@
     var storedLang = 'es';
     try {
       var sl = localStorage.getItem('cv-lang');
-      if (sl === 'es' || sl === 'en') storedLang = sl;
+      if (sl === 'es' || sl === 'en' || sl === 'pt') storedLang = sl;
     } catch (e) {}
     setLanguage(storedLang);
   })();
