@@ -855,6 +855,30 @@
        impreso/descargado, nunca en el sitio web. */
     .avatar-initials{display:none;}
     .avatar-photo{display:block;}
+
+    /* Excepción: en la versión descargada/impresa en inglés NO se incluye
+       la foto (se mantienen las iniciales "ET"), solo en español. */
+    html[lang="en"] .avatar-initials{display:inline;}
+    html[lang="en"] .avatar-photo{display:none;}
+
+    /* El contenido en inglés ocupa más líneas que el español, así que solo
+       al imprimir/descargar en inglés se reduce el interlineado al mínimo
+       legible para recortar páginas. La vista en pantalla no se toca. */
+    html[lang="en"] body{
+      line-height:1.15;
+    }
+    html[lang="en"] .perfil-texto{
+      line-height:1.15;
+    }
+    html[lang="en"] .exp-item li{
+      line-height:1.15;
+    }
+    html[lang="en"] .courses-list li,
+    html[lang="en"] .ref-item,
+    html[lang="en"] .edu-main span,
+    html[lang="en"] .exp-empresa{
+      line-height:1.15;
+    }
   }
 </style>
 </head>
