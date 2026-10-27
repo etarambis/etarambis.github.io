@@ -9,7 +9,7 @@ A single-page, trilingual (Spanish, English, Portuguese) résumé hosted on GitH
 ```
 .
 ├── index.html       # Markup, styles, scripts and translations (all in one file)
-└── fotoPerfil.jpg   # Profile picture
+└── img01.jpg         # Profile picture (resized, used in the printed PDF)
 ```
 
 ## Run locally
