@@ -578,10 +578,9 @@
   .main-section:last-child{margin-bottom:0;}
 
   .perfil-texto{
-    margin:1rem 0 0;
-    font-size:.92rem;
-    color:var(--texto);
-    line-height:1.65;
+    margin:0;
+    font-size:.82rem;
+    line-height:1.55;
   }
 
   /* Formación */
@@ -663,6 +662,7 @@
     color:var(--texto-muted);
   }
   .exp-tools strong{color:var(--accent-text);}
+  .exp-item strong{font-weight:400;}
 
   /* Cursos */
   .courses-list{
@@ -805,11 +805,11 @@
     .cv::after{content:""; display:table; clear:both;}
     .sidebar{
       float:left;
-      width:280px;
+      width:320px;
     }
     .main{
       display:block;
-      margin-left:280px; /* ancho fijo del sidebar, en vez de un contexto de bloque
+      margin-left:320px; /* ancho fijo del sidebar, en vez de un contexto de bloque
         (overflow:hidden) cuyo ancho "auto" varía según en qué página termine
         el flotante, lo que recortaba el texto en las páginas siguientes */
       width:auto;
@@ -896,6 +896,25 @@
     html[lang="en"] .exp-empresa{
       line-height:1.15;
     }
+
+    /* Todo el CV debe caber en UNA sola hoja A4. Se reduce la escala de la
+       página completa y se ajusta el espaciado para que el contenido entre
+       sin saltar a una segunda hoja. */
+    html,body{height:297mm; overflow:hidden;}
+    .cv{zoom:0.58; min-height:0;}
+    .exp-item{margin-top:.6rem; padding-bottom:.5rem;}
+    .main-section{margin-bottom:0;}
+    /* Formación, Cursos e Idiomas van en tres columnas para ahorrar altura. */
+    .extras-grid{
+      display:block;
+      margin-top:.4rem;
+      break-inside:avoid;
+    }
+    .extras-grid .edu-item,
+    .extras-grid .courses-list{margin-top:.5rem;}
+    .extras-grid .courses-list li{padding:.15rem 0;}
+    .extras-grid .main-section{margin-top:.5rem;}
+    .extras-grid .section-title{margin-bottom:0;}
   }
 </style>
 </head>
@@ -1014,84 +1033,19 @@
                 <span class="li-print-value">linkedin.com/in/edison-tarambis</span>
               </a></span>
             </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 4-7 8-7s8 3 8 7"></path></svg>
-              <span data-i18n="nationality">Ecuatoriano</span>
-            </li>
           </ul>
         </section>
 
-        <section class="sidebar-section" aria-labelledby="skills-h">
-          <h2 id="skills-h" data-i18n="h_skills">Habilidades técnicas</h2>
-
-          <div class="skill-group">
-            <h3 data-i18n="h_skill_test">Automatización de pruebas</h3>
-            <div class="skill-tags">
-              <span>Selenium WebDriver</span><span>Serenity BDD</span><span>Cucumber</span>
-              <span>Karate DSL</span><span>Playwright</span><span>K6</span><span>Postman</span>
-            </div>
-          </div>
-
-          <div class="skill-group">
-            <h3 data-i18n="h_skill_prog">Programación</h3>
-            <div class="skill-tags">
-              <span>Java</span><span>JavaScript</span><span>TypeScript</span><span>Python</span>
-              <span>SQL (Oracle, PostgreSQL, MySQL)</span><span>PL/SQL</span><span>Git/GitHub</span>
-            </div>
-          </div>
-
-          <div class="skill-group">
-            <h3>DevOps &amp; Cloud</h3>
-            <div class="skill-tags">
-              <span>Azure DevOps</span><span>AWS</span><span>Docker</span><span>Jenkins</span>
-              <span>SonarCloud</span><span>CI/CD</span>
-            </div>
-          </div>
-
-          <div class="skill-group">
-            <h3 data-i18n="h_skill_method">Metodologías</h3>
-            <div class="skill-tags">
-              <span>Agile/Scrum</span><span>BDD/TDD</span><span>Shift-Left Testing</span>
-              <span>Risk-Based Testing</span>
-            </div>
-          </div>
-
-          <div class="skill-group">
-            <h3 data-i18n="h_skill_mgmt">Gestión</h3>
-            <div class="skill-tags">
-              <span>JIRA</span><span>TestRail</span><span data-i18n="skill_leadership">Liderazgo de equipos</span><span data-i18n="skill_mentoring">Mentoría técnica</span>
-            </div>
-          </div>
-        </section>
-
-        <section class="sidebar-section" aria-labelledby="idiomas-h">
-          <h2 id="idiomas-h" data-i18n="h_idiomas">Idiomas</h2>
-          <div class="lang-item">
-            <div class="lang-top"><span data-i18n="lang_es_label">Español</span><span class="nivel" data-i18n="lvl_native">Nativo</span></div>
-            <div class="lang-bar"><span style="width:100%"></span></div>
-          </div>
-          <div class="lang-item">
-            <div class="lang-top"><span data-i18n="lang_en_label">Inglés</span><span class="nivel" data-i18n="lvl_prof">Profesional - técnico</span></div>
-            <div class="lang-bar"><span style="width:50%"></span></div>
-          </div>
-        </section>
-
-        <section class="sidebar-section" aria-labelledby="aficiones-h">
-          <h2 id="aficiones-h" data-i18n="h_aficiones">Aficiones e intereses</h2>
-          <ul class="hobbies-list">
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"></path><line x1="9" y1="21" x2="15" y2="21"></line><line x1="10" y1="17" x2="10" y2="21"></line><line x1="14" y1="17" x2="14" y2="21"></line></svg>
-              <span data-i18n="hobby1">Investigación de IA y metodologías ágiles</span>
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"></path><path d="M18.7 8l-5.1 5.1-3-3L3 17.4"></path></svg>
-              <span data-i18n="hobby2">Tendencias de QA</span>
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-              <span data-i18n="hobby3">Pensamiento estructurado</span>
-            </li>
-          </ul>
+        <section class="sidebar-section" aria-labelledby="perfil-h">
+          <h2 id="perfil-h" data-i18n="h_perfil">Perfil profesional</h2>
+          <p class="perfil-texto" data-i18n="perfil_text">
+            Ingeniero en Informática con MBA y amplia trayectoria en desarrollo y automatización de
+            pruebas (QA Automation / SDET). Especializado en la arquitectura, diseño e implementación de
+            frameworks de automatización web y móvil desde cero utilizando Playwright, Appium, Serenity BDD,
+            TypeScript y Java. Apasionado por los principios de Clean Code, diseño de software robusto,
+            pruebas de API, pruebas de rendimiento y estrategias de datos (seeding y mocks) para optimizar
+            pipelines de CI/CD y garantizar entregas de software continuas, escalables y sin fricciones.
+          </p>
         </section>
 
       </div>
@@ -1105,38 +1059,6 @@
 
     <!-- ============ CONTENIDO PRINCIPAL ============ -->
     <section class="main">
-
-      <section class="main-section" aria-labelledby="perfil-h">
-        <h2 class="section-title" id="perfil-h" data-i18n="h_perfil">Perfil profesional</h2>
-        <p class="perfil-texto" data-i18n="perfil_text">
-          Ingeniero en Informática con MBA y amplia trayectoria en desarrollo y automatización de
-          pruebas (QA Automation / SDET). Especializado en la arquitectura, diseño e implementación de
-          frameworks de automatización web y móvil desde cero utilizando Playwright, Appium, Serenity BDD,
-          TypeScript y Java. Apasionado por los principios de Clean Code, diseño de software robusto,
-          pruebas de API, pruebas de rendimiento y estrategias de datos (seeding y mocks) para optimizar
-          pipelines de CI/CD y garantizar entregas de software continuas, escalables y sin fricciones.
-        </p>
-      </section>
-
-      <section class="main-section" aria-labelledby="formacion-h">
-        <h2 class="section-title" id="formacion-h" data-i18n="h_formacion">Formación</h2>
-
-        <div class="edu-item">
-          <div class="edu-main">
-            <strong data-i18n="edu1_title">MBA Administración de Empresas</strong>
-            <span>Universidad Central del Ecuador</span>
-          </div>
-          <div class="edu-fecha">2013 — 2015</div>
-        </div>
-
-        <div class="edu-item">
-          <div class="edu-main">
-            <strong data-i18n="edu2_title">Ingeniería en Informática</strong>
-            <span>Universidad Central del Ecuador</span>
-          </div>
-          <div class="edu-fecha">1998 — 2006</div>
-        </div>
-      </section>
 
       <section class="main-section" aria-labelledby="experiencia-h">
         <h2 class="section-title" id="experiencia-h" data-i18n="h_experiencia">Experiencia profesional</h2>
@@ -1218,47 +1140,33 @@
         </article>
       </section>
 
-      <section class="main-section" aria-labelledby="cursos-h">
-        <h2 class="section-title" id="cursos-h" data-i18n="h_cursos">Cursos y certificaciones</h2>
-        <ul class="courses-list">
-          <li><span class="course-name"><span data-i18n="crs23">Curso Completo de ClaudeCode: Crea Aplicaciones con IA</span> <span class="course-horas">(15h)</span></span><span class="course-year">2026</span></li>
-          <li><span class="course-name"><span data-i18n="crs1">Stratio Generative AI Data Governance</span> <span class="course-horas">(12h)</span></span><span class="course-year">2026</span></li>
-          <li><span class="course-name"><span data-i18n="crs2">Stratio Generative AI Data Fabric Basics</span> <span class="course-horas">(8h)</span></span><span class="course-year">2026</span></li>
-          <li><span class="course-name"><span data-i18n="crs3">Fundamentos de IA aplicada a QA y Testing Inteligente</span> <span class="course-horas">(20h)</span></span><span class="course-year">2026</span></li>
-          <li><span class="course-name"><span data-i18n="crs4">Serenity BDD avanzado con Screenplay Pattern</span> <span class="course-horas">(22h)</span></span><span class="course-year">2026</span></li>
-          <li><span class="course-name"><span data-i18n="crs5">Karate DSL: API Automation and Performance from Zero to Hero</span> <span class="course-horas">(10h)</span></span><span class="course-year">2025</span></li>
-          <li><span class="course-name"><span data-i18n="crs6">Automatización de Pruebas Serenity</span> <span class="course-horas">(15h)</span></span><span class="course-year">2025</span></li>
-          <li><span class="course-name"><span data-i18n="crs7">K6: Pruebas de Rendimiento y Carga para Principiantes</span> <span class="course-horas">(8h)</span></span><span class="course-year">2025</span></li>
-          <li><span class="course-name"><span data-i18n="crs8">ISTQB Agile Tester Certified Tester (CTFL-AT)</span> <span class="course-horas">(8h)</span></span><span class="course-year">2025</span></li>
-          <li><span class="course-name"><span data-i18n="crs9">ISTQB Certified Tester Foundation Level (CTFL 4.0)</span> <span class="course-horas">(6h)</span></span><span class="course-year">2025</span></li>
-          <li><span class="course-name"><span data-i18n="crs10">Dynatrace Fundamentals</span> <span class="course-horas">(4h)</span></span><span class="course-year">2025</span></li>
-          <li><span class="course-name"><span data-i18n="crs11">Site Reliability Engineering (SRE): The Big Picture</span> <span class="course-horas">(5h)</span></span><span class="course-year">2025</span></li>
-          <li><span class="course-name"><span data-i18n="crs12">Developing Docker Apps: Core Principles</span> <span class="course-horas">(4h)</span></span><span class="course-year">2025</span></li>
-          <li><span class="course-name"><span data-i18n="crs13">DevOps Foundations: Continuous Integration and Continuous Delivery</span> <span class="course-horas">(4h)</span></span><span class="course-year">2025</span></li>
-          <li><span class="course-name"><span data-i18n="crs14">Aceleración del desarrollo de aplicaciones mediante GitHub Copilot</span> <span class="course-horas">(10h)</span></span><span class="course-year">2025</span></li>
-          <li><span class="course-name"><span data-i18n="crs15">Curso Completo de Microsoft Azure Fundamentals (AZ-900)</span> <span class="course-horas">(9h)</span></span><span class="course-year">2024</span></li>
-          <li><span class="course-name"><span data-i18n="crs19">Automatización de pruebas con Playwright y TypeScript</span> <span class="course-horas">(20h)</span></span><span class="course-year">2024</span></li>
-          <li><span class="course-name"><span data-i18n="crs20">AWS: Arquitecto Soluciones Certificado</span> <span class="course-horas">(20h)</span></span><span class="course-year">2024</span></li>
-        </ul>
-      </section>
-
-      <section class="main-section" aria-labelledby="referencias-h">
-        <h2 class="section-title" id="referencias-h" data-i18n="h_referencias">Referencias laborales</h2>
-        <div class="refs-grid">
-          <div class="ref-item">
-            <strong>Ing. Fernando Vaca</strong>
-            <span data-i18n="ref1_role">Líder de Automatización — Banco Pichincha</span>
-          </div>
-          <div class="ref-item">
-            <strong>Ing. María José Ron</strong>
-            <span data-i18n="ref2_role">Coordinadora de Calidad — DNTI, IESS</span>
-          </div>
-          <div class="ref-item">
-            <strong>Ing. Patricio Salazar</strong>
-            <span data-i18n="ref3_role">Jefe de Proyectos — SONDA S.A</span>
+      <div class="extras-grid">
+      <section class="main-section" aria-labelledby="educacion-h">
+        <h2 class="section-title" id="educacion-h" data-i18n="h_formacion">Formación</h2>
+        <div class="edu-item">
+          <div class="edu-main">
+            <strong data-i18n="edu_sys_title">Ingeniero en Sistemas Informáticos</strong>
+            <span>Universidad Central del Ecuador, Quito, Ecuador</span>
           </div>
         </div>
       </section>
+
+      <section class="main-section" aria-labelledby="cursos-h">
+        <h2 class="section-title" id="cursos-h" data-i18n="h_cursos_simple">Cursos</h2>
+        <ul class="courses-list">
+          <li><span class="course-name"><span data-i18n="crs1">Stratio Generative AI Data Governance</span></span><span class="course-year" data-i18n="crs_feb2026">Feb 2026</span></li>
+          <li><span class="course-name"><span data-i18n="crs_proc">Stratio Generative AI Data Processing</span></span><span class="course-year" data-i18n="crs_feb2026">Feb 2026</span></li>
+        </ul>
+      </section>
+
+      <section class="main-section" aria-labelledby="idiomas-h">
+        <h2 class="section-title" id="idiomas-h" data-i18n="h_idiomas">Idiomas</h2>
+        <ul class="courses-list">
+          <li><span class="course-name" data-i18n="lang_es_label">Español</span><span class="course-year" data-i18n="lvl_native">Nativo</span></li>
+          <li><span class="course-name" data-i18n="lang_en_label">Inglés</span><span class="course-year">B2</span></li>
+        </ul>
+      </section>
+      </div>
 
     </section>
   </main>
@@ -1331,6 +1239,10 @@
       },
 
       h_formacion:{es:"Formación", en:"Education", pt:"Formação"},
+      edu_sys_title:{es:"Ingeniero en Sistemas Informáticos", en:"Computer Systems Engineer", pt:"Engenheiro de Sistemas de Computação"},
+      h_cursos_simple:{es:"Cursos", en:"Courses", pt:"Cursos"},
+      crs_proc:{es:"Stratio Generative AI Data Processing", en:"Stratio Generative AI Data Processing", pt:"Stratio Generative AI Data Processing"},
+      crs_feb2026:{es:"Feb 2026", en:"Feb 2026", pt:"Fev 2026"},
       edu1_title:{es:"MBA Administración de Empresas", en:"MBA in Business Administration", pt:"MBA em Administração de Empresas"},
       edu2_title:{es:"Ingeniería en Informática", en:"Computer Engineering", pt:"Engenharia da Computação"},
 
