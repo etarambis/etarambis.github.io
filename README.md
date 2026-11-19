@@ -8,8 +8,7 @@ A single-page, trilingual (Spanish, English, Portuguese) résumé hosted on GitH
 
 ```
 .
-├── index.html       # Markup, styles, scripts and translations (all in one file)
-└── img01.jpg         # Profile picture (resized, used in the printed PDF)
+└── index.html       # Markup, styles, scripts and translations (all in one file)
 ```
 
 ## Run locally
@@ -36,7 +35,6 @@ Skipping either one leaves the page inconsistent when the language is switched.
 ## Stack
 
 - HTML, CSS and vanilla JavaScript
-- Google Analytics 4 for the visit counter
 - GitHub Pages for hosting
 
 ## Deployment
